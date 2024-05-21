@@ -41,7 +41,7 @@
 											@endif
 											<div class="col-4">
 												<label class="form-label" for="customer_id">Customer</label>
-												<select class="form-select" id="customer_id" name="customer_id">
+												<select class="form-select" id="customer_id" name="customer_id" required>
 													<option selected value="">--Select--</option>
 													@foreach ($customers as $customer)
 														<option
@@ -54,7 +54,7 @@
 											</div>
 											<div class="col-4">
 												<label class="form-label" for="trans_type_id">Transaction Type</label>
-												<select class="form-select" id="trans_type_id" name="trans_type_id">
+												<select class="form-select" id="trans_type_id" name="trans_type_id" required>
 													<option selected value="">--Select--</option>
 													@foreach ($transaction_types as $transaction_type)
 														<option
@@ -67,7 +67,7 @@
 											</div>
 											<div class="col-4">
 												<label class="form-label" for="motor_id">Motorcycle</label>
-												<select class="form-select" id="motor_id" name="motor_id">
+												<select class="form-select" id="motor_id" name="motor_id" required>
 													<option selected value="">--Select--</option>
 													@foreach ($motors as $motor)
 														@foreach ($motor->colors as $color)
@@ -82,21 +82,28 @@
 													@endforeach
 												</select>
 											</div>
-											<div class="col-4">
+											<div class="col-3">
 												<label class="form-label" for="downpayment">Downpayment</label>
 												<input
 													@isset($transaction)
                                                         disabled
                                                     @endisset
 													class="form-control" id="downpayment" name="downpayment" type="text"
-													value="{{ old('downpayment', isset($transaction->downpayment) ? $transaction->downpayment : '') }}">
+													value="{{ old('downpayment', isset($transaction->downpayment) ? $transaction->downpayment : '') }}" required>
 											</div>
-											<div class="col-4" id="loan" style="display : {{ isset($transaction->loan_tenure_months) && $transaction->loan_tenure_months == '0'  ?  'none' : 'block' }}">
+											<div class="col-3" id="loan" style="display : {{ isset($transaction->loan_tenure_months) && $transaction->loan_tenure_months == '0'  ?  'none' : 'block' }}">
 												<label class="form-label" for="loan_tenure_months">Loan Tenure (Months)</label>
 												<input class="form-control" id="loan_tenure_months" name="loan_tenure_months" type="number"
 													value="{{ old('loan_tenure_months', isset($transaction->loan_tenure_months) ? $transaction->loan_tenure_months : '') }}">
 											</div>
-											<div class="col-4" id="due_date" style="display : {{ isset($transaction->due_date) && $transaction->due_date == '0'  ?  'none' : 'block' }}">
+											<div class="col-3">
+												<label class="form-label" for="chassis">Chassis</label>
+												<input
+												
+													class="form-control" id="chassis" name="chassis" type="text"
+													value="{{ old('chassis', isset($transaction->chassis) ? $transaction->chassis : '') }}" required>
+											</div>
+											<div class="col-3" id="due_date" style="display : {{ isset($transaction->due_date) && $transaction->due_date == '0'  ?  'none' : 'block' }}">
 												<label class="form-label" for="loan_tenure_months">Due Date</label>
 												<div class="d-flex gap-2  align-items-center">
 													<p class="m-0">Every </p> 
@@ -138,6 +145,7 @@
 													<p class="m-0"> of the month</p>
 												</div>
 											</div>
+											
 											<div class="col-12 d-flex justify-content-end">
 												<a class="btn btn-danger btn-sm mx-2" href="{{ route('transaction.index') }}">Cancel</a>
 												<button class="btn btn-primary btn-sm" type="submit">Save</button>
@@ -153,7 +161,13 @@
 			</div>
 		</div>
 	</div>
+	@push('scripts')
 	<script>
+		$(document).ready(function() {
+
+$('.form-select').select2();
+
+});
 		var value;
 		let motor = document.getElementById('motor_id');
 		let due_date = document.getElementById('due_date');
@@ -197,4 +211,5 @@
 
 		});
     </script>
+	@endpush
 </x-app-layout>

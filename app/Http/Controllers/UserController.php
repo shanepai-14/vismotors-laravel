@@ -65,6 +65,7 @@ class UserController extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             return redirect()->route('user.create')->with('error', 'Error on adding new user.');
         } {
             DB::commit();

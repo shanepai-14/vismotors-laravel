@@ -20,7 +20,7 @@
                 <input type="hidden" name="cashier_id"  value="{{Auth::user()->id}}">
                 <input type="hidden" name="ref_no"  value="{{$transactions->ref_no}}">
                 <input type="hidden" name="payment_plan"  value="{{$transactions->transaction_types->name}}">
-                <input type="hidden" name="balance"  value="{{ $transactions->motors->price_installment - $transactions->getTotalAmountAttribute() }}">
+                <input type="hidden" name="balance"  value="{{ $transactions->latest_balance}}">
     
                 
                 <div class="col-12" id="printJS-form">
@@ -32,10 +32,10 @@
 
                    @if($transactions->transaction_types->name == 'Cash')
 
-                   <h5 class="mb-0 text-success">₱{{ $transactions->motors->price_cash}}</h5>
+                   <h5 class="mb-0 text-success">₱{{ number_format($transactions->motors->price_cash,2, '.', ',')}}</h5>
 
                 @else              
-                   <h5 class="mb-0 text-success">₱{{ $transactions->motors->price_installment}}</h5>
+                   <h5 class="mb-0 text-success">₱{{ number_format($transactions->motors->price_installment,2, '.', ',')}}</h5>
                    @endif
                 </div>
                
@@ -46,6 +46,12 @@
                            <span class="fw-bold text-success ms-1"> {{ $transactions->ref_no }}</span>
        
                      </div>
+                     <div class="d-flex justify-content-between">
+             
+                      <h6>Chassis :</h6>
+                      <span class="fw-bold text-success ms-1"> {{ $transactions->chassis }}</span>
+  
+                </div>
                      <div class="d-flex justify-content-between">
              
                        <h6>Account Name</h6>
@@ -65,7 +71,7 @@
                   
                      <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
                        <h6>Downpayment</h6>
-                       <span class="fw-bold text-success ms-1">₱{{$transactions->downpayment}}</span>
+                       <span class="fw-bold text-success ms-1">₱{{number_format($transactions->downpayment,2, '.', ',')}}</span>
                      </div>
                      @if(isset($transactions->due_date) && $transactions->monthly_due !== '0' && isset($transactions->monthly_due))
                      <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
@@ -83,7 +89,7 @@
                           </div>
                       <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
                        <h6>Monthy Due</h6>
-                       <span class="fw-bold text-success ms-1">₱{{$transactions->monthly_due}}</span>
+                       <span class="fw-bold text-success ms-1">₱{{number_format($transactions->monthly_due,2, '.', ',')}}</span>
                      </div>   
                      @endif
                    
@@ -91,10 +97,10 @@
                      <div class="d-flex mt-1 justify-content-between align-items-center">
                          <h6>Account Balance</h6>
                          @if($transactions->transaction_types->name == 'Cash')
-                         <h6 class="fw-bold text-success ms-1">₱{{ $transactions->downpayment - $transactions->getTotalAmountAttribute() }}</h6>
+                         <h6 class="fw-bold text-success ms-1">₱{{ number_format($transactions->downpayment - $transactions->getTotalAmountAttribute(),2, '.', ',') }}</h6>
 
                          @else
-                         <h6 class="fw-bold text-success ms-1">₱{{ $transactions->motors->price_installment - $transactions->getTotalAmountAttribute() }}</h6>
+                         <h6 class="fw-bold text-success ms-1">₱{{ number_format($transactions->motors->price_installment - $transactions->getTotalAmountAttribute(),2, '.', ',') }}</h6>
                          @endif
                      </div>
                      @if($transactions->transaction_types->name !== 'Cash')
@@ -132,7 +138,7 @@
                            </div>
                        </div>
                        @else
-                       <span class="fw-bold text-success ms-1">₱{{ $transactions->downpayment}}</span>
+                       <span class="fw-bold text-success ms-1">₱{{ number_format($transactions->downpayment,2, '.', ',')}}</span>
                        @endif
                      </div>
                      <hr />
@@ -164,20 +170,27 @@
             <h5 class="mb-3">{{ $motor->brand->name }} {{ $motor->modelnameyear() }} - {{ $transactions->motors->color }}</h5>
             @if($transactions->transaction_types->name == 'Cash')
 
-                   <h5 class="mb-0 text-success">₱{{ $transactions->motors->price_cash}}</h5>
+                   <h5 class="mb-0 text-success">₱{{ number_format($transactions->motors->price_cash,2, '.', ',')}}</h5>
 
                 @else              
-                   <h5 class="mb-0 text-success">₱{{ $transactions->motors->price_installment}}</h5>
+                   <h5 class="mb-0 text-success">₱{{ number_format($transactions->motors->price_installment,2, '.', ',')}}</h5>
                    @endif
          </div>
        
             <div>
+             
                 <div class="d-flex justify-content-between">
       
-                    <h6>Contract no :</h6>
+                    <h6>Contract no </h6>
                     <span class="fw-bold text-success ms-1"> {{ $transactions->ref_no }}</span>
 
               </div>
+              <div class="d-flex justify-content-between">
+      
+                <h6>Chassis </h6>
+                <span class="fw-bold text-success ms-1"> {{ $transactions->chassis }}</span>
+
+          </div>
               <div class="d-flex justify-content-between">
       
                 <h6>Account Name</h6>
@@ -197,8 +210,9 @@
            
               <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
                 <h6>Downpayment</h6>
-                <span class="fw-bold text-success ms-1">{{$transactions->downpayment}}</span>
+                <span class="fw-bold text-success ms-1">₱{{number_format($transactions->downpayment,2, '.', ',')}}</span>
               </div>
+              @if($transactions->transaction_types->name !== 'Cash')
               <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
                 <h6>Interest</h6>
                 <span class="fw-bold text-success ms-1">{{$transactions->motors->interest_rate}}%</span>
@@ -213,21 +227,22 @@
               </div>
               <div class="d-flex justify-content-between align-items-center bg-body-tertiary">
                 <h6>Monthy Due</h6>
-                <span class="fw-bold text-success ms-1">{{$transactions->monthly_due}}</span>
+                <span class="fw-bold text-success ms-1">₱{{number_format($transactions->monthly_due,2, '.', ',')}}</span>
               </div>
+              @endif
               <hr />
               <div class="d-flex mt-1 justify-content-between align-items-center">
                   <h6>Account Balance</h6>
                   @if($transactions->transaction_types->name == 'Cash')
-                  <h6 class="fw-bold text-success ms-1">₱{{ $transactions->downpayment - $transactions->getTotalAmountAttribute() }}</h6>
+                  <h6 class="fw-bold text-success ms-1">₱{{ number_format($transactions->downpayment - $transactions->getTotalAmountAttribute(),2, '.', ',')}}</h6>
 
                   @else
-                  <h6 class="fw-bold text-success ms-1">₱{{ $transactions->motors->price_installment - $transactions->getTotalAmountAttribute() }}</h6>
+                  <h6 class="fw-bold text-success ms-1">₱{{ number_format($transactions->motors->price_installment - $transactions->getTotalAmountAttribute(),2, '.', ',') }}</h6>
                   @endif
               </div>
               <div class="d-flex mt-1  justify-content-between align-items-center">
                 <h6>Total amount dues</h6>
-                <h6 class="fw-bold text-success ms-1 m-0">₱{{$transactions->monthly_due}}</h6>
+                <h6 class="fw-bold text-success ms-1 m-0">₱{{number_format($transactions->monthly_due)}}</h6>
             </div>
              
               <hr />
@@ -317,7 +332,7 @@
                             </td>
                             </td>
                             <td>
-                                ₱{{ $payment->amount }}
+                                ₱{{ number_format($payment->amount,2, '.', ',') }}
                             </td>
                             <td>
           
@@ -328,11 +343,11 @@
                             <td>
                                 {{ formatDate($payment->created_at) }} 
                             </td>
-                            <td>₱{{ isset($payment->balance) ? $payment->balance : '0'}}</td>
+
+                            <td>₱{{ number_format(isset($payment->balance) ? $payment->balance : 0,2, '.', ',')}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-primary btn-sm"
-                                        >Edit</button>
+              
                                     <button class="btn btn-warning btn-sm" onclick="printReciept('order',{{$payment->balance}},'{{$payment->payment_method}}','{{$payment->or_number}}',{{$payment->amount}},'{{formatDate($payment->created_at)}}')"
                                         >Print</button>
                                 </div>
@@ -354,15 +369,18 @@
                     <span class="fw-bold">{{ $motor->brand->name }} {{ $motor->modelnameyear() }} - {{ $transactions->motors->color }}</span> 
                     @if($transactions->transaction_types->name == 'Cash')
 
-                    <span >₱{{ $transactions->motors->price_cash}}</span>
+                    <span >₱{{ number_format($transactions->motors->price_cash,2, '.', ',')}}</span>
  
                  @else              
-                    <span >₱{{ $transactions->motors->price_installment}}</span>
+                    <span >₱{{ number_format($transactions->motors->price_installment,2, '.', ',')}}</span>
                     @endif
                   </div>
                  
                   <div class="d-flex justify-content-between mt-2">
                     <span>Contract no :</span> <span>{{ $transactions->ref_no }}</span>
+                  </div>
+                  <div class="d-flex justify-content-between mt-2">
+                    <span>Chassis :</span> <span>{{ $transactions->chassis}}</span>
                   </div>
                   <div class="d-flex justify-content-between mt-2">
                     <span>Account Name</span> <span>{{$transactions->customers->fullname() }}</span>
@@ -371,7 +389,7 @@
                     <span>Payment plan</span> <span>{{ $transactions->transaction_types->name }}</span>
                   </div>
                   <div class="d-flex justify-content-between mt-2">
-                    <span>Downpayment</span> <span>₱{{$transactions->downpayment}}</span>
+                    <span>Downpayment</span> <span>₱{{number_format($transactions->downpayment,2, '.', ',')}}</span>
                   </div>
                   <div class=" justify-content-between mt-2" style="display: {{  $transactions->transaction_types->name == 'Cash' ? 'none' : 'flex'}}">
                     <span>Interest</span> <span>{{$transactions->motors->interest_rate}}%</span>
@@ -383,7 +401,7 @@
                     <span>Due date</span> <span>{{$transactions->due_date.''. getDaySuffix($transactions->due_date)}}</i> of the month</span>
                   </div>
                   <div class=" justify-content-between mt-2" style="display: {{  $transactions->transaction_types->name == 'Cash' ? 'none' : 'flex'}}">
-                    <span>Monthy Due</span> <span>₱{{$transactions->monthly_due}}</span>
+                    <span>Monthy Due</span> <span>₱{{number_format($transactions->monthly_due,2, '.', ',')}}</span>
                   </div>
                   <hr>
                   <div class="d-flex justify-content-between mt-2">
@@ -393,7 +411,7 @@
                   </div>
                   <div class=" justify-content-between mt-2" style="display: {{  $transactions->transaction_types->name == 'Cash' ? 'none' : 'flex'}}">
                     <span class="lh-sm">Total amount dues</span>
-                    <span id="total_amount">₱{{$transactions->monthly_due}}</span>
+                    <span id="total_amount">₱{{number_format($transactions->monthly_due,2, '.', ',')}}</span>
                   </div>
                   <div class="d-flex justify-content-between mt-2">
                     <span class="lh-sm">Payment method</span>
@@ -451,9 +469,9 @@
         let or_number = document.getElementById('or_number');
             or_number.innerHTML = orNumber;
         let account_balance = document.getElementById('account_balance');
-        account_balance.innerHTML = '₱'+balance;
+        account_balance.innerHTML = '₱'+balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         let total_amount_paid = document.getElementById('total_amount_paid');
-        total_amount_paid.innerHTML  = '₱'+amount;
+        total_amount_paid.innerHTML  = '₱'+amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           let payment_method = document.getElementById('payment_method');
             payment_method.innerHTML = paymentMethod;
             let reciept_date = document.getElementById('reciept_date');

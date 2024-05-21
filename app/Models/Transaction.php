@@ -17,7 +17,8 @@ class Transaction extends Model
         'monthly_due',
         'loan_tenure_months',
         'status_id',
-        'due_date'
+        'due_date',
+        'chassis'
     ];
 
     public function customers()
@@ -44,5 +45,13 @@ class Transaction extends Model
     public function getTotalAmountAttribute()
     {
         return $this->payments->sum('amount');
+    }
+    public function getLatestBalanceAttribute()
+    {
+        $latestPayment = $this->payments()
+            ->latest('created_at')
+            ->first();
+
+        return $latestPayment ? $latestPayment->balance : 0;
     }
 }

@@ -93,6 +93,7 @@ class TransactionController extends Controller
             'downpayment' => 'nullable|numeric',
             'loan_tenure_months' => 'nullable|integer',
             'due_date' => 'required',
+            'chassis' => 'required',
         ]);
     
         $request->merge(['status_id' => 1]);
@@ -209,7 +210,9 @@ class TransactionController extends Controller
             'payment_plan' => 'required',
             'balance' => 'required',
         ]);
-         
+        $balance = $request->balance;
+        $amount = $request->amount;
+        $request['balance'] =  $balance - $amount;
         $request['description'] = 'monthly';
         TransactionPayment::create($request->all());
         return redirect()->back();
