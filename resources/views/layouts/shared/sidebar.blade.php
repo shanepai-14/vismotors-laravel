@@ -54,23 +54,40 @@
 				</li>
 			</ul>
 		</li>
+		@if(auth()->user()->roles[0]->name == 'admin')
 		<li class="menu-label">Setup</li>
-		<li>
-			<a class="has-arrow" href="javascript:;">
+		<li onclick="handleEditButtonClick()" >
+			<a onclick="handleEditButtonClick()" class="has-arrow" >
 				<div class="parent-icon"><i class='bx bx-cart'></i>
 				</div>
 				<div class="menu-title">Setup</div>
 			</a>
 			<ul>
-				<li> <a href="{{ route('brand.index') }}"><i class='bx bx-radio-circle'></i>Brand</a>
+				<li> <a href="{{ route('brand.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Brand</a>
 				</li>
-				<li> <a href="{{ route('transaction_type.index') }}"><i class='bx bx-radio-circle'></i>Transaction Type</a>
+				<li> <a href="{{ route('transaction_type.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Transaction Type</a>
 				</li>
-				<li> <a href="{{ route('motor.index') }}"><i class='bx bx-radio-circle'></i>Motorcycle</a>
+				<li> <a href="{{ route('motor.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Motorcycle</a>
 				</li>
-				<li> <a href="{{ route('occupation.index') }}"><i class='bx bx-radio-circle'></i>Occupation</a>
+				<li> <a href="{{ route('occupation.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Occupation</a>
 				</li>
 			</ul>
 		</li>
+		@endif
 	</ul>
+	@push('scripts')
+	<script>
+	   
+
+		 function handleEditButtonClick() {
+	// Get the role value from the PHP variable
+	const role = @json(auth()->user()->roles[0]->name);
+	
+	// Check if the role is 'cashier'
+	if (role === 'cashier' || role === 'member') {
+			event.preventDefault();
+			return Notiflix.Notify.failure("You dont have enough permissions");
+	} 
+}
+	</script>
 </div>

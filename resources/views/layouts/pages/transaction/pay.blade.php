@@ -125,17 +125,6 @@
                              </div>
                            </div>
        
-                           <div class="d-flex flex-row">
-                             <div class="d-flex align-items-center pe-2">
-                               <input class="form-check-input" type="radio" name="payment_method" id="radioNoLabel2" value="Card" aria-label="..." autocompleted="" data-gtm-form-interact-field-id="0">
-                             </div>
-                             <div class="d-flex w-100  align-items-center">
-                               <p class="mb-0">
-                                 <i class="fab fa-cc-mastercard fa-lg text-body pe-2"></i>Card
-                               </p>
-       
-                             </div>
-                           </div>
                        </div>
                        @else
                        <span class="fw-bold text-success ms-1">₱{{ number_format($transactions->downpayment,2, '.', ',')}}</span>

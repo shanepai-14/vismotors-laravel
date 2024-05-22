@@ -10,12 +10,13 @@ use App\Models\TransactionType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class TransactionController extends Controller
 {
     public function index()
     {
         $transactions = Transaction::all();
-
+        
         return view('layouts.pages.transaction.index', [
             'transactions' => $transactions
         ]);
@@ -217,4 +218,35 @@ class TransactionController extends Controller
         TransactionPayment::create($request->all());
         return redirect()->back();
     }
+    public function status(Request $request) {
+        $request->validate([
+            'transaction_id' => 'required',
+            'status_id' => 'required',
+        ]);
+    
+        $transaction = Transaction::find($request->transaction_id);
+        
+        if ($transaction) {
+            $transaction->status_id = $request->status_id;
+            $transaction->save();
+            return redirect()->back()->with('success', 'Data successfully saved');
+        }
+    
+        return redirect()->back()->with('error', 'Transaction not found');
+    }
+    public function monthy_report(Request $request){
+        $month = $request->input('month', Carbon::now()->format('Y-m'));
+
+        // Fetch payments for the selected month
+        $payments = TransactionPayment::whereYear('created_at', '=', Carbon::parse($month)->year)
+                           ->whereMonth('created_at', '=', Carbon::parse($month)->month)
+                           ->get();
+
+                           return view('layouts.pages.report.report', [
+                            'payments' => $payments
+                        ]);
+
+    } 
+
+   
 }

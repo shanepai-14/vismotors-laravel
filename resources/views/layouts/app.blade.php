@@ -31,7 +31,8 @@
 	<link href="{{ asset('assets/css/dark-theme.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/css/semi-dark.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/css/header-colors.css') }}" rel="stylesheet" />
-	<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ asset('assets/js/dist/notiflix-3.2.7.min.css') }}"></link>
+	<link  href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 	<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
 <link
     href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -41,9 +42,10 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <link
 rel="stylesheet"
-href="https://printjs-4de6.kxcdn.com/print.min.css"
+href="https://print<script src="{{ asset('assets/js/pace.min.js') }}"></script>-4de6.kxcdn.com/print.min.css"
 />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+ @stack('styles')
 
 	@vite([])
 </head>
@@ -66,10 +68,10 @@ href="https://printjs-4de6.kxcdn.com/print.min.css"
 	<script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
 	<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 	<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-<script src='https://printjs-4de6.kxcdn.com/print.min.js'></script>
+	<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+	<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+	<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+	<script src='https://printjs-4de6.kxcdn.com/print.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -77,6 +79,7 @@ href="https://printjs-4de6.kxcdn.com/print.min.css"
 
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('assets/js/dist/notiflix-3.2.7.min.js') }}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	@stack('scripts')
 </body>

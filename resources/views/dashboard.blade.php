@@ -19,7 +19,7 @@
 						<div class="d-flex align-items-center">
 							<div class="me-auto">
 								<p class="mb-0 text-light">Total Revenue</p>
-								<h4 class="my-1 text-light">₱84,245</h4>
+								<h4 class="my-1 text-light">₱{{number_format($totalRevenue,2,'.',',')}}</h4>
 							</div>
 						</div>
 					</div>

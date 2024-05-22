@@ -27,9 +27,9 @@
 							</div>
 							<div class="col-3 d-flex justify-content-end">
 							@if($type === 'customer')
-							<a class="btn btn-primary" href="{{ route('user.create') }}">Add</a>
+							<a class="btn btn-primary" href="{{ route('user.create') }}" onclick="handleEditButtonClick()">Add</a>
 							@else
-							<a class="btn btn-primary" href="{{ route('user.employee.create') }}">Add</a>
+							<a class="btn btn-primary" href="{{ route('user.employee.create') }}" onclick="handleEditButtonClick()">Add</a>
 							@endif
 							</div>
 						</div>
@@ -69,10 +69,10 @@
 											<div class="ms-auto">
 												<div class="btn-group">
 													@if($type === 'customer')
-													<a class="btn btn-primary btn-sm" href="{{ route('user.edit', ['user' => $user]) }}">Edit</a>
+													<a class="btn btn-primary btn-sm" href="{{ route('user.edit', ['user' => $user]) }}" onclick="handleEditButtonClick()">Edit</a>
 
 													@else
-													<a class="btn btn-primary btn-sm" href="{{ route('user.employee.edit', ['user' => $user]) }}">Edit</a>
+													<a class="btn btn-primary btn-sm" href="{{ route('user.employee.edit', ['user' => $user]) }}" onclick="handleEditButtonClick()">Edit</a>
 													@endif
 												</div>
 											</div>
@@ -86,6 +86,22 @@
 			</div>
 		</div>
 	</div>
+	@push('scripts')
+	<script>
+	   
+
+		 function handleEditButtonClick() {
+	// Get the role value from the PHP variable
+	const role = @json(auth()->user()->roles[0]->name);
+	
+	// Check if the role is 'cashier'
+	if (role === 'cashier' || role === 'member') {
+			event.preventDefault();
+			return Notiflix.Notify.failure("You dont have enough permissions");
+	} 
+}
+	</script>
+@endpush
 	@section('additional_css')
 		<link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 	@endsection

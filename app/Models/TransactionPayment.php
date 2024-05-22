@@ -33,4 +33,11 @@ class TransactionPayment extends Model
     public function cashier()   {
         return $this->belongsTo(User::class, 'cashier_id', 'id');
     }
+    public static function totalRevenue()
+    {
+        // Sum up the amount column from all transaction payments
+        $totalRevenue = self::sum('amount');
+
+        return $totalRevenue;
+    }
 }

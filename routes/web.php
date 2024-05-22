@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('brand', BrandController::class);
     Route::resource('motor', MotorController::class);
     Route::resource('transaction_type', TransactionTypeController::class);
+    Route::put('/status', [TransactionController::class, 'status'])->name('status.update');
     Route::resource('occupation', OccupationController::class);
     Route::resource('user', UserController::class);
     Route::get('/employee', [UserController::class, 'employee'])->name('user.employee');
@@ -35,9 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::get('/report', [TransactionController::class, 'monthy_report'])->name('report');
     Route::controller(UploadController::class)->group(function () {
-
+    
         Route::post('/upload', 'store');
         // Route::post('/update', 'update');
         // Route::post('/upload-gallery', 'storeGallery');
