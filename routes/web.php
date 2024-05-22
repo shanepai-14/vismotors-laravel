@@ -20,6 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('transaction_type', TransactionTypeController::class);
     Route::resource('occupation', OccupationController::class);
     Route::resource('user', UserController::class);
+    Route::get('/employee', [UserController::class, 'employee'])->name('user.employee');
+    Route::get('/employee/create', [UserController::class, 'createEmployee'])->name('user.employee.create');
+    Route::get('/employee/{user}/edit', [UserController::class, 'editEmployee'])->name('user.employee.edit');
     Route::resource('transaction', TransactionController::class);
     Route::get('/transaction_payment/{transaction}', [TransactionController::class, 'pay'])->name('payment.transaction');
     Route::post('/transaction_payment/paid', [TransactionController::class, 'paid'])->name('payment.paid');

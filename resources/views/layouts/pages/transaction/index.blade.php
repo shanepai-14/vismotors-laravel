@@ -29,8 +29,9 @@
 							<thead>
 								<tr>
 									<th style="width: 13%">Contract No.</th>
-									<th style="width: 40%">Customer</th>
+									<th style="width: 30%">Customer</th>
 									<th style="width: 40%">Details</th>
+									<th style="width: 10%">Date</th>
 									<th style="width: 7%">Action</th>
 								</tr>
 							</thead>
@@ -69,6 +70,9 @@
 													<span class="badge bg-success">{{ $transaction->statuses->name }}</span>
 												</div>
 											</div>
+										</td>
+										<td>
+											{{formatDate($transaction->created_at) }}
 										</td>
 										<td>
 											<div class="ms-auto">

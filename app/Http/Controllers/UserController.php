@@ -18,10 +18,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users =  User::role('member')->get();
 
         return view('layouts.setup.user.index', [
-            'users' => $users
+            'users' => $users,
+            'type' => 'customer',
+            
+        ]);
+    }
+    public function employee()
+    {
+        $users =  User::role(['admin','cashier'])->get();
+
+        return view('layouts.setup.user.index', [
+            'users' => $users,
+            'type' => 'employee'
         ]);
     }
 
@@ -39,11 +50,31 @@ class UserController extends Controller
             'civilStatus' => $civilStatus,
             'citizenship' => $citizenship,
             'occupation' => $occupation,
+            'type' => 'customer'
+        ]);
+    }
+    public function createEmployee()
+    {
+        $roles = Role::all();
+        $gender = Gender::all();
+        $civilStatus = CivilStatus::all();
+        $citizenship = Citizenship::all();
+        $occupation = Occupation::all();
+         
+        return view('layouts.setup.user.create', [
+            'roles' => $roles,
+            'gender'=> $gender,
+            'civilStatus' => $civilStatus,
+            'citizenship' => $citizenship,
+            'occupation' => $occupation,
+            'type' => 'employee'
         ]);
     }
 
     public function store(Request $request)
     {
+        $roles = $request->input('role', []);
+  
         DB::beginTransaction();
 
         $request->validate([
@@ -53,6 +84,23 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required'],
+            'gender_id' => ['required'],
+            'civil_status_id' => ['required'],
+            'citizenship_id' => ['required'],
+            'occupation_id' => ['required'],
+            'fathers_name' => ['required', 'string', 'max:255'],
+            'mothers_name' => ['required', 'string', 'max:255'],
+            'phone_no' => ['required'], 
+            'longitude' => ['required'],
+            'latitude' => ['required'],
+            'valid_one_temp' => ['required', 'string', 'max:255'],
+            'valid_two_temp' => ['required', 'string', 'max:255'],
+            'profile_temp' => ['required', 'string', 'max:255'],
+           'address_lot' => ['required', 'string', 'max:255'],
+           'address_brgy' => ['required', 'string', 'max:255'],
+           'address_city' =>['required', 'string', 'max:255'],
+           'address_prov' => ['required', 'string', 'max:255']
         ]);
         try {
             $user = User::create([
@@ -69,7 +117,7 @@ class UserController extends Controller
             return redirect()->route('user.create')->with('error', 'Error on adding new user.');
         } {
             DB::commit();
-            $user->syncRoles('member');
+            $user->syncRoles($roles);
             $user_profile = UserProfile::create([
                  'user_id' => $user->id,
                  'gender_id' => $request->gender_id,
@@ -92,7 +140,11 @@ class UserController extends Controller
                 'address_city' => $request->address_city,
                 'address_prov' => $request->address_prov
             ]);
+           if($request->type === 'customer'){
             return redirect()->route('user.index')->with('success', 'New user has been added successfully.');
+           }else{
+            return redirect()->route('user.employee')->with('success', 'New user has been added successfully.');
+           }
         };
     }
 
@@ -120,6 +172,29 @@ class UserController extends Controller
             'civilStatus' => $civilStatus,
             'citizenship' => $citizenship,
             'occupation' => $occupation,
+            'type' => 'customer'
+        ]);
+    }
+    public function editEmployee(User $user)
+    {
+        $arr = array();
+        foreach ($user->roles as $role) {
+            $arr[] = $role->id;
+        }
+        $gender = Gender::all();
+        $roles = Role::all();
+        $civilStatus = CivilStatus::all();
+        $citizenship = Citizenship::all();
+        $occupation = Occupation::all();
+        return view('layouts.setup.user.create', [
+            'roles' => $roles,
+            'user' => $user,
+            'arr' => $arr,
+            'gender' => $gender,
+            'civilStatus' => $civilStatus,
+            'citizenship' => $citizenship,
+            'occupation' => $occupation,
+            'type' => 'employee'
         ]);
     }
 

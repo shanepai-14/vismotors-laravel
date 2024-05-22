@@ -7,7 +7,7 @@
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a>
+						<li class="breadcrumb-item"><a href="{{ route('user.index') }}">Customer</a>
 						</li>
 						<li aria-current="page" class="breadcrumb-item active">{{ isset($user) ? 'Edit' : 'Create' }}</li>
 					</ol>
@@ -15,6 +15,20 @@
 			</div>
 		</div>
 		<div class="row d-flex justify-content-center">
+			@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		@if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 			<div class="col-12">
 				<div class="card">
 					
@@ -28,6 +42,7 @@
 								<form action="{{ route('user.store') }}" enctype="multipart/form-data" method="post">
 						@endif
 						@csrf
+						<input class="form-control" id="type" name="type" type="hidden" value='{{$type}}' > 
 						<div class="form-body mt-4">
 							<div class="row">
 								<div class="col-8">
@@ -180,29 +195,22 @@
 									</div>
 								</div>
 								<div class="col-4">
-									{{-- <div class="border border-3 p-4 rounded mb-4">
+									<div class="border border-3 p-4 rounded mb-4">
 										<div class="row g-3 mb-2">
 											<div class="col-12">
 												<label class="form-label">Roles</label>
+												@if($type === 'employee')
 												@foreach ($roles as $role)
+													@if($role->name !== 'member')
 													@if (isset($user))
-														@if (in_array($role->id, $arr))
-															<div class="form-check">
-																<input checked class="form-check-input" id="{{ $role->name }}" name="role[]" type="checkbox"
-																	value="{{ $role->name }}">
-																<label class="form-check-label" for="{{ $role->name }}">
-																	<span class="text-capitalize">{{ $role->name }}</span>
-																</label>
-															</div>
-														@else
-															<div class="form-check">
-																<input class="form-check-input" id="{{ $role->name }}" name="role[]" type="checkbox"
-																	value="{{ $role->name }}">
-																<label class="form-check-label" for="{{ $role->name }}">
-																	<span class="text-capitalize">{{ $role->name }}</span>
-																</label>
-															</div>
-														@endif
+													@if (in_array($role->id, $arr))
+														<div class="form-check">
+															<input checked class="form-check-input" id="{{ $role->name }}" name="role[]" type="checkbox"
+																value="{{ $role->name }}">
+															<label class="form-check-label" for="{{ $role->name }}">
+																<span class="text-capitalize">{{ $role->name }}</span>
+															</label>
+														</div>
 													@else
 														<div class="form-check">
 															<input class="form-check-input" id="{{ $role->name }}" name="role[]" type="checkbox"
@@ -212,11 +220,31 @@
 															</label>
 														</div>
 													@endif
+												@else
+													<div class="form-check">
+														<input class="form-check-input" id="{{ $role->name }}" name="role[]" type="checkbox"
+															value="{{ $role->name }}" >
+														<label class="form-check-label" for="{{ $role->name }}">
+															<span class="text-capitalize">{{ $role->name }}</span>
+														</label>
+													</div>
+												@endif
+													@endif
 												@endforeach
+												@endif
+												@if($type === 'customer')
+												<div class="form-check">
+													<input checked class="form-check-input" id="member" name="role[]" type="checkbox"
+														value="member" readonly>
+													<label class="form-check-label" for="member">
+														<span class="text-capitalize">member</span>
+													</label>
+												</div>
+												@endif
 											</div>
 										</div>
 										
-									</div> --}}
+									</div>
 									<div class="border border-3 p-4 rounded mb-4">
 										
 										<div class="row g-3 mb-2">

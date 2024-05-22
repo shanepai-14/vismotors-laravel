@@ -7,21 +7,30 @@
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li aria-current="page" class="breadcrumb-item active">Users</li>
+						<li aria-current="page" class="breadcrumb-item active">Customer</li>
 					</ol>
 				</nav>
 			</div>
 		</div>
+		@if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 		<div class="row d-flex justify-content-center">
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mb-2">
 							<div class="col-9">
-								<h5 class="mb-0 text-uppercase">Users</h5>
+								<h5 class="mb-0 text-uppercase">Customer</h5>
 							</div>
 							<div class="col-3 d-flex justify-content-end">
-								<a class="btn btn-primary" href="{{ route('user.create') }}">Add</a>
+							@if($type === 'customer')
+							<a class="btn btn-primary" href="{{ route('user.create') }}">Add</a>
+							@else
+							<a class="btn btn-primary" href="{{ route('user.employee.create') }}">Add</a>
+							@endif
 							</div>
 						</div>
 						<table class="table table-striped table-bordered" id="datatable" style="width:100%">
@@ -59,7 +68,12 @@
 										<td>
 											<div class="ms-auto">
 												<div class="btn-group">
+													@if($type === 'customer')
 													<a class="btn btn-primary btn-sm" href="{{ route('user.edit', ['user' => $user]) }}">Edit</a>
+
+													@else
+													<a class="btn btn-primary btn-sm" href="{{ route('user.employee.edit', ['user' => $user]) }}">Edit</a>
+													@endif
 												</div>
 											</div>
 										</td>

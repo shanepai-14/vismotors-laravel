@@ -26,7 +26,12 @@
 			<ul>
 				<li>
 					<a href="{{ route('user.index') }}">
-						<i class='bx bx-radio-circle'></i>Users
+						<i class='bx bx-radio-circle'></i>Customer
+					</a>
+				</li>
+				<li>
+					<a href="{{ route('user.employee') }}">
+						<i class='bx bx-radio-circle'></i>Employee
 					</a>
 				</li>
 			</ul>
