@@ -50,7 +50,7 @@
 				<div class="menu-title">Reports</div>
 			</a>
 			<ul>
-				<li> <a href="#"><i class='bx bx-radio-circle'></i>Monthly Report</a>
+				<li> <a href="{{ route('report') }}"><i class='bx bx-radio-circle'></i>Monthly Report</a>
 				</li>
 			</ul>
 		</li>
