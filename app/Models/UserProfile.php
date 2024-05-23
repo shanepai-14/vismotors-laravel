@@ -54,4 +54,8 @@ class UserProfile extends Model
     {
         return $this->belongsTo(Occupation::class, 'occupation_id', 'id');
     }
+    public function citizenship()
+    {
+        return $this->belongsTo(Citizenship::class, 'citizenship_id', 'id');
+    }
 }

@@ -14,8 +14,14 @@ use App\Http\Controllers\ApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/user', function () {
+
+});
+
+Route::post('/login', [ApiController::class, 'login']);
+Route::group(['middleware' => ['auth:sanctum']] ,function () {
+    Route::get('/balance/{userId}', [ApiController::class, 'getUserBalance']);
+    Route::get('/payments/{userId}', [ApiController::class, 'getUserPayments']);
 });
 
 Route::get('/user', [ApiController::class, 'getUserByContract']);
