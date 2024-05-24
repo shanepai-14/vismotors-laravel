@@ -75,7 +75,7 @@
 																<option
 																	{{ old('motor_id', isset($transaction) && $transaction->motor_id == $color->motor_id ? 'selected' : '') }}
 																	data-cash="{{ $color->price_cash }}" value="{{ $color->id }}">
-																	{{ $motor->brand->name }} {{ $motor->modelnameyear() }} - {{ $color->color }}
+																	{{ $motor->brand->name }} {{ $motor->modelnameyear() }} - {{ $color->color }} - QTY : {{$color->quantity}}
 																</option>
 															@endif
 														@endforeach
