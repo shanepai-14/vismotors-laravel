@@ -50,15 +50,18 @@
 											<span>{{ $motor->specifications }}</span>
 										</td>
 										<td>
-									 @if(count($motor->colors) > 0)
-										 @foreach($motor->colors as $color)
-										
-											 {{ $color->quantity}}
-											
-										 @endforeach
-                                        @else
-                                           <span>0</span>
-                                         
+											@if(count($motor->colors) > 0)
+											@php
+												$total = 0;
+											@endphp
+											@foreach($motor->colors as $color)
+												@php
+													$total += $color->quantity
+												@endphp
+											@endforeach
+											{{ $total }}
+										@else
+											<span>0</span>
 										@endif
 
 										 
