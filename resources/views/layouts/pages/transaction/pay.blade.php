@@ -419,7 +419,7 @@
     </div>
     @push('scripts')
     <script>
-
+$( document ).ready(function() {
         function printDiv(divId) {
         var element = document.getElementById(divId);
 
@@ -452,7 +452,36 @@
            
 });
     }
-    function printReciept(divId,balance,paymentMethod,orNumber,amount,date) {
+   
+
+    let map, marker;
+    const lat = parseFloat(@json($transactions->customers->profile->latitude ?? null));
+        const lng = parseFloat(@json($transactions->customers->profile->longitude ?? null));
+function initMap() {
+             const defaultLat = 9.299996171243155;
+            const defaultLng = 123.30301500485619;
+            
+            const mapLat = !isNaN(lat) ? lat : defaultLat;
+            const mapLng = !isNaN(lng) ? lng : defaultLng;
+
+
+	map = L.map('mapContainer').setView([mapLat, mapLng], 13); // Default center coordinates and zoom level
+
+	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
+	marker = L.marker([mapLat, mapLng], { // Default marker position
+		draggable: true
+	}).addTo(map);
+
+	marker.on('dragend', function(event) {
+		updateMarkerPosition(event.target.getLatLng());
+	});
+}
+initMap()
+});
+function printReciept(divId,balance,paymentMethod,orNumber,amount,date) {
         var or_layout = document.getElementById('or_layout');
             or_layout.style.display = 'block';
         let or_number = document.getElementById('or_number');
@@ -501,33 +530,6 @@
            
 });
     }
-
-    let map, marker;
-    const lat = parseFloat(@json($transactions->customers->profile->latitude ?? null));
-        const lng = parseFloat(@json($transactions->customers->profile->longitude ?? null));
-function initMap() {
-             const defaultLat = 9.299996171243155;
-            const defaultLng = 123.30301500485619;
-            
-            const mapLat = !isNaN(lat) ? lat : defaultLat;
-            const mapLng = !isNaN(lng) ? lng : defaultLng;
-
-
-	map = L.map('mapContainer').setView([mapLat, mapLng], 13); // Default center coordinates and zoom level
-
-	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-
-	marker = L.marker([mapLat, mapLng], { // Default marker position
-		draggable: true
-	}).addTo(map);
-
-	marker.on('dragend', function(event) {
-		updateMarkerPosition(event.target.getLatLng());
-	});
-}
-initMap()
     </script>
     @endpush
 	@section('additional_css')

@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect to HTTPS if not already using HTTPS
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteRule ^(.*)$ https://vismotor.services/$1 [R=301,L]
+
+# Redirect to the public folder inside vismotordeploy
+RewriteCond %{HTTP_HOST} ^vismotor.services$ [NC]
+RewriteRule ^(.*)$ /vismotor.services/vismotordeploy/public/$1 [L]
+
+# If the requested URL doesn't match any file or directory,
+# remove the /public/ segment and pass the remaining part to index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)/public/?(.*)$ $1/vismotordeploy/public/index.php?/$2 [L]
