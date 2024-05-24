@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Facades\File;
 class UserController extends Controller
 {
     public function index()
     {
+        File::link(
+            storage_path('app/public'), public_path('storage')
+        );
+
         $users =  User::role('member')->get();
 
         return view('layouts.setup.user.index', [
