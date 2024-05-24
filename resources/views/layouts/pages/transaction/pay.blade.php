@@ -431,33 +431,45 @@
               var element = document.getElementById(divId);
       
               html2canvas(element).then(function(canvas) {
-                     var canvasWidth = canvas.width * 2;
-                      var canvasHeight = canvas.height * 2;
-      
-                      // Create a new window with the same dimensions as the canvas
-                      var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
-                      win.document.write('<html><head><title>Print</title>');
-                      win.document.write('<style>');
-                      win.document.write('@page { size: A5 }');
-                      win.document.write('</style></head><body>');
-                      win.document.body.appendChild(canvas);
-                      win.document.write('</body></html>');
-                      win.document.body.appendChild(canvas);
-                      
-                      // Ensure the canvas is fully loaded before printing
-                      canvas.onload = function() {
-                          win.print();
-                          win.close();
-                      };
-                      
-                      // In some browsers, the onload event might not fire for the canvas, so use a timeout
-                      setTimeout(function() {
-                          win.print();
-                          win.close();
-                      }, 500);
-                      
-                 
-      });
+    var canvasWidth = canvas.width * 2;
+    var canvasHeight = canvas.height * 2;
+
+    // Create a new window with the same dimensions as the canvas
+    var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
+
+    // Create a new HTML document structure
+    var doc = win.document;
+    var html = doc.documentElement;
+    html.innerHTML = '';
+
+    // Create and append the necessary elements
+    var head = doc.createElement('head');
+    var title = doc.createElement('title');
+    title.textContent = 'Print';
+    head.appendChild(title);
+
+    var style = doc.createElement('style');
+    style.textContent = '@page { size: A5 }';
+    head.appendChild(style);
+
+    var body = doc.createElement('body');
+    body.appendChild(canvas);
+
+    html.appendChild(head);
+    html.appendChild(body);
+
+    // Ensure the canvas is fully loaded before printing
+    canvas.onload = function() {
+        win.print();
+        win.close();
+    };
+
+    // In some browsers, the onload event might not fire for the canvas, so use a timeout
+    setTimeout(function() {
+        win.print();
+        win.close();
+    }, 500);
+});
           }
          
       
