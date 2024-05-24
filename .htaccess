@@ -3,7 +3,7 @@ RewriteOptions inherit
     RewriteEngine on
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP:X-Forwarded-SSL} !on
-    RewriteRule ^(.*)$ "https://vismotor.services.com/$1" [R=301,L]
+    RewriteRule ^(.*)$ "https://vismotor.services/$1" [R=301,L]
 
     RewriteCond %{HTTP_HOST} ^vismotor.services$ [NC,OR]
     RewriteCond %{HTTP_HOST} ^www.vismotor.services$
