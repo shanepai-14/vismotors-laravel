@@ -385,7 +385,7 @@
                 </table>
             </div>
             <div>
-                <div class="" style="width: 500px" id="or_layout" style="display: none">
+                <div class="" style="width: 500px; display: none" id="or_layout">
                     <div class="p-3 bg-body-tertiary" id="order">
                         <h1 class="text-center mb-0">Vismotors Corp.</h1>
                         <p class="text-center mb-0"> <i id="reciept_date">sample date</i></p>
