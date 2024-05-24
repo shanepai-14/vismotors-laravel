@@ -417,121 +417,7 @@
         
       </section>
     </div>
-    @push('scripts')
-    <script>
-$( document ).ready(function() {
-        function printDiv(divId) {
-        var element = document.getElementById(divId);
-
-        html2canvas(element).then(function(canvas) {
-               var canvasWidth = canvas.width * 2;
-                var canvasHeight = canvas.height * 2;
-
-                // Create a new window with the same dimensions as the canvas
-                var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
-                win.document.write('<html><head><title>Print</title>');
-                win.document.write('<style>');
-                win.document.write('@page { size: A5 }');
-                win.document.write('</style></head><body>');
-                win.document.body.appendChild(canvas);
-                win.document.write('</body></html>');
-                win.document.body.appendChild(canvas);
-                
-                // Ensure the canvas is fully loaded before printing
-                canvas.onload = function() {
-                    win.print();
-                    win.close();
-                };
-                
-                // In some browsers, the onload event might not fire for the canvas, so use a timeout
-                setTimeout(function() {
-                    win.print();
-                    win.close();
-                }, 500);
-                
-           
-});
-    }
    
-
-    let map, marker;
-    const lat = parseFloat(@json($transactions->customers->profile->latitude ?? null));
-        const lng = parseFloat(@json($transactions->customers->profile->longitude ?? null));
-function initMap() {
-             const defaultLat = 9.299996171243155;
-            const defaultLng = 123.30301500485619;
-            
-            const mapLat = !isNaN(lat) ? lat : defaultLat;
-            const mapLng = !isNaN(lng) ? lng : defaultLng;
-
-
-	map = L.map('mapContainer').setView([mapLat, mapLng], 13); // Default center coordinates and zoom level
-
-	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
-
-	marker = L.marker([mapLat, mapLng], { // Default marker position
-		draggable: true
-	}).addTo(map);
-
-	marker.on('dragend', function(event) {
-		updateMarkerPosition(event.target.getLatLng());
-	});
-}
-initMap()
-});
-function printReciept(divId,balance,paymentMethod,orNumber,amount,date) {
-        var or_layout = document.getElementById('or_layout');
-            or_layout.style.display = 'block';
-        let or_number = document.getElementById('or_number');
-            or_number.innerHTML = orNumber;
-        let account_balance = document.getElementById('account_balance');
-        account_balance.innerHTML = '₱'+balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        let total_amount_paid = document.getElementById('total_amount_paid');
-        total_amount_paid.innerHTML  = '₱'+amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          let payment_method = document.getElementById('payment_method');
-            payment_method.innerHTML = paymentMethod;
-            let reciept_date = document.getElementById('reciept_date');
-                reciept_date.innerHTML = date;    
-        var element = document.getElementById(divId);
-
-        html2canvas(element).then(function(canvas) {
-               var canvasWidth = canvas.width * 2;
-                var canvasHeight = canvas.height * 2;
-
-                // Create a new window with the same dimensions as the canvas
-                var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
-                win.document.write('<html><head><title>Print</title>');
-                win.document.write('<style>');
-                win.document.write('@page { size: A5 }');
-                win.document.write('</style></head><body>');
-                win.document.body.appendChild(canvas);
-                win.document.write('</body></html>');
-                win.document.body.appendChild(canvas);
-                
-                // Ensure the canvas is fully loaded before printing
-                canvas.onload = function() {
-                    win.print();
-                    win.close();
-                };
-                
-                // In some browsers, the onload event might not fire for the canvas, so use a timeout
-                setTimeout(function() {
-                    win.print();
-                    win.close();
-                }, 500);
-                win.onafterprint = function() {
-                    or_layout.style.display = 'none';
-                };
-                win.onbeforeunload = function() {
-                    or_layout.style.display = 'none';
-                }
-           
-});
-    }
-    </script>
-    @endpush
 	@section('additional_css')
 		<link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 	@endsection
@@ -539,5 +425,118 @@ function printReciept(divId,balance,paymentMethod,orNumber,amount,date) {
 		<script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 		@include('layouts.shared.table-scripts')
+    <script>
+      $( document ).ready(function() {
+              function printDiv(divId) {
+              var element = document.getElementById(divId);
+      
+              html2canvas(element).then(function(canvas) {
+                     var canvasWidth = canvas.width * 2;
+                      var canvasHeight = canvas.height * 2;
+      
+                      // Create a new window with the same dimensions as the canvas
+                      var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
+                      win.document.write('<html><head><title>Print</title>');
+                      win.document.write('<style>');
+                      win.document.write('@page { size: A5 }');
+                      win.document.write('</style></head><body>');
+                      win.document.body.appendChild(canvas);
+                      win.document.write('</body></html>');
+                      win.document.body.appendChild(canvas);
+                      
+                      // Ensure the canvas is fully loaded before printing
+                      canvas.onload = function() {
+                          win.print();
+                          win.close();
+                      };
+                      
+                      // In some browsers, the onload event might not fire for the canvas, so use a timeout
+                      setTimeout(function() {
+                          win.print();
+                          win.close();
+                      }, 500);
+                      
+                 
+      });
+          }
+         
+      
+          let map, marker;
+          const lat = parseFloat(@json($transactions->customers->profile->latitude ?? null));
+              const lng = parseFloat(@json($transactions->customers->profile->longitude ?? null));
+      function initMap() {
+                   const defaultLat = 9.299996171243155;
+                  const defaultLng = 123.30301500485619;
+                  
+                  const mapLat = !isNaN(lat) ? lat : defaultLat;
+                  const mapLng = !isNaN(lng) ? lng : defaultLng;
+      
+      
+        map = L.map('mapContainer').setView([mapLat, mapLng], 13); // Default center coordinates and zoom level
+      
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+      
+        marker = L.marker([mapLat, mapLng], { // Default marker position
+          draggable: true
+        }).addTo(map);
+      
+        marker.on('dragend', function(event) {
+          updateMarkerPosition(event.target.getLatLng());
+        });
+      }
+      initMap()
+      });
+      function printReciept(divId,balance,paymentMethod,orNumber,amount,date) {
+              var or_layout = document.getElementById('or_layout');
+                  or_layout.style.display = 'block';
+              let or_number = document.getElementById('or_number');
+                  or_number.innerHTML = orNumber;
+              let account_balance = document.getElementById('account_balance');
+              account_balance.innerHTML = '₱'+balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              let total_amount_paid = document.getElementById('total_amount_paid');
+              total_amount_paid.innerHTML  = '₱'+amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                let payment_method = document.getElementById('payment_method');
+                  payment_method.innerHTML = paymentMethod;
+                  let reciept_date = document.getElementById('reciept_date');
+                      reciept_date.innerHTML = date;    
+              var element = document.getElementById(divId);
+      
+              html2canvas(element).then(function(canvas) {
+                     var canvasWidth = canvas.width * 2;
+                      var canvasHeight = canvas.height * 2;
+      
+                      // Create a new window with the same dimensions as the canvas
+                      var win = window.open('', '', `width=${canvasWidth},height=${canvasHeight}`);
+                      win.document.write('<html><head><title>Print</title>');
+                      win.document.write('<style>');
+                      win.document.write('@page { size: A5 }');
+                      win.document.write('</style></head><body>');
+                      win.document.body.appendChild(canvas);
+                      win.document.write('</body></html>');
+                      win.document.body.appendChild(canvas);
+                      
+                      // Ensure the canvas is fully loaded before printing
+                      canvas.onload = function() {
+                          win.print();
+                          win.close();
+                      };
+                      
+                      // In some browsers, the onload event might not fire for the canvas, so use a timeout
+                      setTimeout(function() {
+                          win.print();
+                          win.close();
+                      }, 500);
+                      win.onafterprint = function() {
+                          or_layout.style.display = 'none';
+                      };
+                      win.onbeforeunload = function() {
+                          or_layout.style.display = 'none';
+                      }
+                 
+      });
+          }
+          </script>
 	@endsection
 </x-app-layout>
