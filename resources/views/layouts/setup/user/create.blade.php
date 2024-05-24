@@ -186,8 +186,8 @@
 											
 											<div class="col-12 border border-3 p-4 rounded">
 												<label class="form-label">Pin your address location</label>
-												<input type="text" id="latitude" name="latitude" hidden>
-											<input type="text" id="longitude" name="longitude" hidden>
+												<input type="text" id="latitude" name="latitude" value="9.299996171243155" hidden>
+											<input type="text" id="longitude" name="longitude" value="123.30301500485619" hidden>
 										<div id="mapContainer" style="height: 400px;"></div>
 											</div>
 										</div>
