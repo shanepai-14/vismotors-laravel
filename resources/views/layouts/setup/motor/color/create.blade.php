@@ -64,9 +64,9 @@
 												<input class="form-control" id="price_installment" name="price_installment" type="number"
 													value="{{ old('price_installment', isset($color->price_installment) ? $color->price_installment : '') }}">
 											</div>
-											<div class="col-4">
+											{{-- <div class="col-4">
 												<label class="form-label" for="motor_type_id">Motor Type</label>
-												<select class="form-select" id="motor_type_id" name="motor_type_id">
+												<select class="form-select" id="motor_type_id" name="motor_type_id" >
 													<option selected value="">--Select--</option>
 													@foreach ($types as $motor_type)
 														<option
@@ -76,7 +76,7 @@
 														</option>
 													@endforeach
 												</select>
-											</div>
+											</div> --}}
 											<div class="col-12 d-flex justify-content-end">
 												<a class="btn btn-danger btn-sm mx-2" href="{{ route('color.index', ['motor' => $motor]) }}">Cancel</a>
 												<button class="btn btn-primary btn-sm" type="submit">Save</button>

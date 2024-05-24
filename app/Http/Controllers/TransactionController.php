@@ -102,7 +102,8 @@ class TransactionController extends Controller
         $motorPriceData = MotorColorKey::whereId($request->motor_id)
             ->with('motor')
             ->firstOrFail();
-    
+            $originalQuantity = $motorPriceData->quantity;
+            $motorPriceData->quantity = $originalQuantity - 1;
         if ($request->trans_type_id == 1) {
             $request->merge([
                 'downpayment' => $motorPriceData->price_cash,
@@ -117,7 +118,7 @@ class TransactionController extends Controller
                 'monthly_due' => $payable / $request->loan_tenure_months,
             ]);
         }
-    
+        $motorPriceData->save();
         $transaction = Transaction::create($request->all());
     
 
@@ -172,18 +173,20 @@ class TransactionController extends Controller
             'loan_tenure_months' => 'nullable'
         ]);
 
-        $motor_price = MotorColorKey::whereId($request->motor_id)->with('motor')->first();
+        $motor_selected = MotorColorKey::whereId($request->motor_id)->with('motor')->first();
+        
         if ($request->trans_type_id == 1) {
-            $request['downpayment'] = $motor_price->price_cash;
+            $request['downpayment'] = $motor_selected->price_cash;
             $request['loan_tenure_months'] = 0;
         } else {
-            $remaining = $motor_price->price_installment - $request->downpayment;
-            $payable = $remaining + ($remaining * ($motor_price->interest_rate / 100));
+            $remaining = $motor_selected->price_installment - $request->downpayment;
+            $payable = $remaining + ($remaining * ($motor_selected->interest_rate / 100));
 
             $request['monthly_due'] = $payable / $request->loan_tenure_months;
             $request['status_id'] = 3;
         }
 
+   
         $transaction->update($request->all());
         return redirect()->route('transaction.index')->with('success', 'Data successfully saved');
     }

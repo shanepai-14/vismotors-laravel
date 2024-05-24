@@ -31,6 +31,7 @@
 								<tr>
 									<th style="width: 40%">Color</th>
 									<th style="width: 40%">Price</th>
+									<th style="width: 40%">Quantity</th>
 									<th style="width: 20%">Action</th>
 								</tr>
 							</thead>
@@ -51,6 +52,9 @@
                                                 </div>
                                             </div>
                                         </td>
+										<td>
+											{{ $color->quantity}}
+										</td>
 										<td>
 											<div class="ms-auto">
 												<div class="btn-group">

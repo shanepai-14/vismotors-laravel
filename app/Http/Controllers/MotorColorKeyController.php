@@ -36,7 +36,6 @@ class MotorColorKeyController extends Controller
             'price_cash' => 'required',
             'price_installment' => 'required',
             'interest_rate' => 'required',
-            'motor_type_id' => 'required'
         ]);
         $request['motor_id'] = $motor->id;
 

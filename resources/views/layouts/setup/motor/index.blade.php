@@ -27,8 +27,9 @@
 						<table class="table table-striped table-bordered" id="datatable" style="width:100%">
 							<thead>
 								<tr>
-									<th style="width: 40%">Name</th>
+									<th style="width: 30%">Name</th>
 									<th style="width: 40%">Specifications</th>
+									<th style="width: 10%">Quantity</th>
 									<th style="width: 20%">Action</th>
 								</tr>
 							</thead>
@@ -47,6 +48,20 @@
 										</td>
 										<td>
 											<span>{{ $motor->specifications }}</span>
+										</td>
+										<td>
+									 @if(count($motor->colors) > 0)
+										 @foreach($motor->colors as $color)
+										
+											 {{ $color->quantity}}
+											
+										 @endforeach
+                                        @else
+                                           <span>0</span>
+                                         
+										@endif
+
+										 
 										</td>
 										<td>
 											<div class="ms-auto">
