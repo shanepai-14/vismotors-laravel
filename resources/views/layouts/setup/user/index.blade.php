@@ -7,7 +7,7 @@
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li aria-current="page" class="breadcrumb-item active">Customer</li>
+						<li aria-current="page" class="breadcrumb-item active">{{ $type === 'customer' ? 'Customer' : 'Employee' }}</li>
 					</ol>
 				</nav>
 			</div>
@@ -23,13 +23,13 @@
 					<div class="card-body">
 						<div class="row mb-2">
 							<div class="col-9">
-								<h5 class="mb-0 text-uppercase">Customer</h5>
+								<h5 class="mb-0 text-uppercase">{{ $type === 'customer' ? 'Customer' : 'Employee' }}</h5>
 							</div>
 							<div class="col-3 d-flex justify-content-end">
 							@if($type === 'customer')
-							<a class="btn btn-primary" href="{{ route('user.create') }}" onclick="handleEditButtonClick()">Add</a>
+							<a class="btn btn-primary" href="{{ route('user.create') }}" onclick="handleEditButtonClick()">Add Customer</a>
 							@else
-							<a class="btn btn-primary" href="{{ route('user.employee.create') }}" onclick="handleEditButtonClick()">Add</a>
+							<a class="btn btn-primary" href="{{ route('user.employee.create') }}" onclick="handleEditButtonClick()">Add Employee</a>
 							@endif
 							</div>
 						</div>

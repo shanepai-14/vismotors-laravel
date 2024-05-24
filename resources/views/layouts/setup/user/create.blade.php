@@ -7,7 +7,7 @@
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li class="breadcrumb-item"><a href="{{ route('user.index') }}">Customer</a>
+						<li class="breadcrumb-item"><a href="{{ route('user.index') }}">{{ $type === 'customer' ? 'Customer' : 'Employee' }}</a>
 						</li>
 						<li aria-current="page" class="breadcrumb-item active">{{ isset($user) ? 'Edit' : 'Create' }}</li>
 					</ol>
@@ -33,7 +33,7 @@
 				<div class="card">
 					
 					<div class="card-body p-4">
-						<h6 class="card-title">{{ isset($user) ? 'Edit User' : 'Add New Customer' }}</h6>
+						<h6 class="card-title">{{ isset($user) ? 'Edit '.ucfirst($type) : 'Add '.ucfirst($type)}}</h6>
 						<hr />
 						@if (isset($user))
 							<form action="{{ route('user.update', ['user' => $user->id]) }}" enctype='multipart/form-data' method="post">
@@ -201,6 +201,7 @@
 												<label class="form-label">Roles</label>
 												@if($type === 'employee')
 												@foreach ($roles as $role)
+												 
 													@if($role->name !== 'member')
 													@if (isset($user))
 													@if (in_array($role->id, $arr))

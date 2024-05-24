@@ -38,6 +38,7 @@ class UserController extends Controller
 
     public function create()
     {
+
         $roles = Role::all();
         $gender = Gender::all();
         $civilStatus = CivilStatus::all();
