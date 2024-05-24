@@ -11,7 +11,7 @@ use App\Http\Controllers\TransactionTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 Route::middleware('auth')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/delete-temporary', 'deleteTemporary');
         // Route::post('/upload-chief', 'storeChief');
 ///documents routes 
+});
+
+Route::get('/link', function() {
+    Artisan::call('storage:link');
 });
 });
 
