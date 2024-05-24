@@ -3,11 +3,12 @@ RewriteOptions inherit
     RewriteEngine on
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP:X-Forwarded-SSL} !on
-    RewriteRule ^(.*)$ "https\:\/\/vismotor.services\.com\/$1" [R=301,L]
+    RewriteRule ^(.*)$ "https://vismotor.services.com/$1" [R=301,L]
+
     RewriteCond %{HTTP_HOST} ^vismotor.services$ [NC,OR]
     RewriteCond %{HTTP_HOST} ^www.vismotor.services$
-    RewriteCond %{REQUEST_URI} !public/
-    RewriteRule (.*) /public/$1 [L]
+    RewriteCond %{REQUEST_URI} !vismotordeploy/
+    RewriteRule (.*) /vismotordeploy/$1 [L]
 </IfModule>
 
 <Files xmlrpc.php>
