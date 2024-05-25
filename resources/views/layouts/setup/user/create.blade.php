@@ -254,7 +254,7 @@
 												<label class="form-label">Profile</label>
 												@if(isset($user->profile->profile_picture))
 												<div class=" align-items-center justify-content-center mb-2"  id="profile_preview" style="display:flex">
-													<img  class="mx-auto" src="{{ asset('storage/temporary_docs/'. $user->profile->profile_picture) }}" width="200px">
+													<img  class="mx-auto" src="{{ asset('storage/public/temporary_docs/'. $user->profile->profile_picture) }}" width="200px">
 												</div>
 												@endif
 												 <div class="form-check">
@@ -273,7 +273,7 @@
 												<label class="form-label">Valid ID One</label>
 												@if(isset($user->profile->valid_one))
 												<div class=" align-items-center justify-content-center mb-2" id="valid_one_preview" style="display:flex">
-													<img  class="mx-auto" src="{{ asset('storage/temporary_docs/'. $user->profile->valid_one) }}" width="200px">
+													<img  class="mx-auto" src="{{ asset('storage/public/temporary_docs/'. $user->profile->valid_one) }}" width="200px">
 												</div>
 												@endif
 												 <div class="form-check">
@@ -290,7 +290,7 @@
 												<label class="form-label">Valid ID Two</label>
 												@if(isset($user->profile->valid_two))
 												<div class=" align-items-center justify-content-center mb-2"  id="valid_two_preview" style="display:flex">
-													<img  class="mx-auto" src="{{ asset('storage/temporary_docs/'. $user->profile->valid_two) }}" width="200px">
+													<img  class="mx-auto" src="{{ asset('storage/public/temporary_docs/'. $user->profile->valid_two) }}" width="200px">
 												</div>
 												@endif
 												 <div class="form-check">
