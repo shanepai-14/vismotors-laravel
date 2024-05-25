@@ -11,7 +11,7 @@ class UploadController extends Controller
             $file = $request->file('document');
             $folder = uniqid() . "-" . now()->timestamp;
             $filename = $file->getClientOriginalName();
-            $file->storeAs('public/public/temporary_docs/'. $folder, $filename);
+            $file->storeAs('public/temporary_docs/'. $folder, $filename);
 
                 Temporary::create([
                         'folder' => $folder,
@@ -40,7 +40,7 @@ class UploadController extends Controller
          
                
             // Delete the file from the temporary directory
-            Storage::deleteDirectory('public/public/temporary_docs/' . $folder);
+            Storage::deleteDirectory('public/temporary_docs/' . $folder);
     
             // Delete the corresponding entry from the temporary table
             Temporary::where('folder', $folder)->delete();
