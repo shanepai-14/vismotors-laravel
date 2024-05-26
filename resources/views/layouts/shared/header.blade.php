@@ -560,7 +560,7 @@
 			<div class="user-box dropdown px-3">
 				<a aria-expanded="false" class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret"
 					data-bs-toggle="dropdown" href="#" role="button">
-					<img alt="user avatar" class="user-img" src="{{ asset('assets/images/avatars/avatar-4.png') }}">
+					<img alt="user avatar" class="user-img" src="{{ asset('assets/images/avatars/user.svg') }}">
 					<div class="user-info">
 						<p class="user-name mb-0">{{ auth()->user()->fullname() }}</p>
 						<p class="designattion mb-0 text-capitalize">{{ auth()->user()->roles[0]->name }}</p>

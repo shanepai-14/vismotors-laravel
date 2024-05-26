@@ -13,16 +13,31 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+          .bg-temp{
+                position: fixed ;
+                /* background-image: url('../../../public/assets/images/loginbg.svg'); */
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                width: 100vw;
+                height: 100vh;
+                z-index: -1;
+            }
+        </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+
+    <body class="font-sans text-gray-900 antialiased relative" >
+     
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 ">
+            <div class="bg-temp " style="background-image:url('{{asset('assets/images/loginbg.svg')}}')"></div>
             <div>
                 <a href="/">
                     <img src="{{ asset('assets/images/logo-img.png') }}" alt="logo" style="width: 300px">
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-red-500 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>

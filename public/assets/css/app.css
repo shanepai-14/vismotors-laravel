@@ -11,18 +11,28 @@ Email: codervent@gmail.com
 File: app.css
 
 */
-
+.bg-design{
+	position: fixed ;
+	background-image: url("../images/redwaves1.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	width: 100vw;
+	height: 100vh;
+}
 
 
 body {
-
+    position: relative;
 	font-size: 14px;
 
 	color: #4c5258;
 
 	letter-spacing: .5px;
+/* 
+	background: rgb(253,29,29);
+background: linear-gradient(90deg, rgba(253,29,29,0.07055322128851538) 50%, rgba(252,69,69,0.13778011204481788) 100%); */
 
-	background: #f7f7ff;
 
 	overflow-x: hidden;
 
@@ -64,9 +74,9 @@ a {
 
 	left: 0;
 
-	background: #fff;
+	background: #ffffff;
 
-	border-right: 0 solid #e4e4e4;
+	border-right: 0 solid #dcdcdc;
 
 	z-index: 11;
 
@@ -98,7 +108,7 @@ a {
 
 	z-index: 5;
 
-	background: #fff;
+	background: #d21f3c;
 
 	background-clip: padding-box;
 
@@ -110,8 +120,8 @@ a {
 
 .logo-icon {
 
-	width: 45px
-
+	width: 45px;
+	filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(214deg) brightness(104%) contrast(103%); 
 }
 
 
@@ -156,7 +166,7 @@ a {
 
 	height: 60px;
 
-	background: #fff;
+	background: #d21f3c;
 
 	border-bottom: 1px solid rgb(228 228 228 / 0%);
 
@@ -200,9 +210,11 @@ a {
 
 .page-content {
 
-	padding: 1.5rem 1.5rem 0.7rem 1.5rem
+	padding: 1.5rem 1.5rem 0.7rem 1.5rem;
+    min-height :100vh;
 
-}
+
+     }
 
 
 
@@ -414,7 +426,7 @@ a {
 
 .sidebar-wrapper .metismenu ul {
 
-	background: #fff
+	background: #ffffff;
 
 }
 
@@ -444,11 +456,11 @@ a {
 
 .sidebar-wrapper .metismenu a:hover {
 
-	color: #008cff;
+	color: #d21f3c;
 
     text-decoration: none;
 
-    background-color: rgb(0 140 255 / 5%);
+    background-color: #d21f3d1e;
 
 }
 
@@ -4270,7 +4282,7 @@ input::placeholder {
 
 	font-weight: 500;
 
-	color: #413c3c
+	color: #f9f9f9;
 
 }
 
@@ -4280,7 +4292,8 @@ input::placeholder {
 
 	font-size: 13px;
 
-	color: #747474
+	color: #f9f9f9;
+
 
 }
 

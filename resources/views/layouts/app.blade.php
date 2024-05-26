@@ -51,6 +51,7 @@ href="https://print<script src="{{ asset('assets/js/pace.min.js') }}"></script>-
 </head>
 
 <body>
+	<div class="bg-design"></div>
 	<div class="wrapper">
 		@include('layouts.shared.sidebar')
 		@include('layouts.shared.header')

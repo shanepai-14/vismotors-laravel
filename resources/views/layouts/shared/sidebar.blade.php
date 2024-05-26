@@ -4,7 +4,7 @@
 			<img alt="logo icon" class="logo-icon" src="{{ asset('assets/images/logo-icon.png') }}">
 		</div>
 		<div>
-			<h4 class="logo-text" style="color: #df1212">Vismotor</h4>
+			<h4 class="logo-text" style="color: #ffffff">Vismotor</h4>
 		</div>
 		<div class="toggle-icon ms-auto"><i class='bx bx-arrow-back' style="color: #df1212"></i>
 		</div>
