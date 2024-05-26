@@ -11,6 +11,9 @@ Email: codervent@gmail.com
 File: app.css
 
 */
+.page-link {
+	color :#d21f3c;
+}
 .bg-design{
 	position: fixed ;
 	background-image: url("../images/redwaves1.svg");
