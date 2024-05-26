@@ -41,9 +41,19 @@
 										<div class="row g-3 mb-2">
 											<div class="col-4">
 												<label class="form-label" for="color">Color</label>
-												<input class="form-control" id="color" name="color" type="text"
-													value="{{ old('color', isset($color->color) ? $color->color : '') }}">
+												{{-- <input class="form-control" id="color" name="color" type="text"
+													value="{{ old('color', isset($color->color) ? $color->color : '') }}"> --}}
+													<select class="form-select" id="color" name="color">
+														<option selected value="">--Select--</option>
+														@foreach ($motor_colors as $motor_color)
+															<option {{ old('color', isset($color) && $color->color == $motor_color->color  ? 'selected' : '') }}
+																value="{{ $motor_color->color}}">
+																{{ $motor_color->color }}
+															</option>
+														@endforeach
+													</select>
 											</div>
+
 											<div class="col-4">
 												<label class="form-label" for="quantity">Quantity</label>
 												<input class="form-control" id="quantity" name="quantity" type="number"
@@ -92,4 +102,12 @@
 			</div>
 		</div>
 	</div>
+
+	@push('scripts')
+<script>
+$('#color').select2();
+
+
+</script>
+	@endpush
 </x-app-layout>

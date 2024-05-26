@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Motor;
 use App\Models\MotorColorKey;
 use App\Models\MotorType;
+use App\Models\MotorcycleColor;
 use Illuminate\Http\Request;
 
 class MotorColorKeyController extends Controller
@@ -22,9 +23,12 @@ class MotorColorKeyController extends Controller
     public function create(Motor $motor)
     {
         $types = MotorType::all();
+        $existingColors = $motor->colors()->pluck('color')->toArray();
+        $availableColors = MotorcycleColor::whereNotIn('color', $existingColors)->get();
         return view('layouts.setup.motor.color.create', [
             'motor' => $motor,
-            'types' => $types
+            'types' => $types,
+            'motor_colors' => $availableColors,
         ]);
     }
 
@@ -52,10 +56,15 @@ class MotorColorKeyController extends Controller
     public function edit(Motor $motor, MotorColorKey $color)
     {
         $types = MotorType::all();
+        $existingColors = $motor->colors()->pluck('color')->toArray();
+        $currentColor = $color->color;
+        $existingColors = array_diff($existingColors, [$currentColor]);
+        $availableColors = MotorcycleColor::whereNotIn('color', $existingColors)->get();
         return view('layouts.setup.motor.color.create', [
             'motor' => $motor,
+            'motor_colors' => $availableColors,
+            'types' => $types,
             'color' => $color,
-            'types' => $types
         ]);
     }
 
@@ -75,7 +84,20 @@ class MotorColorKeyController extends Controller
 
         return redirect()->route('color.index', ['motor' => $motor->id])->with('success', 'Data saved successfully');
     }
+    public function updateQuantity(Request $request)
+    {
+        $request->validate([
+            'color_id' => 'required',
+            'quantity' => 'required',
+            'motor_id' => 'required',
+        ]);
+        $color = MotorColorKey::find($request->color_id);
+        $currentQuantity = $color->quantity;
+        $color->quantity = $currentQuantity + $request->quantity;
+        $color->save();
 
+        return redirect()->route('color.index', ['motor' =>$request->motor_id])->with('success', 'Data saved successfully');
+    }
     public function destroy(Motor $motor, MotorColorKey $color)
     {
         //

@@ -60,8 +60,8 @@
 											</div>
 											<div class="col-12">
 												<label class="form-label" for="specifications">Specifications</label>
-												<input class="form-control" id="specifications" name="specifications" type="text"
-													value="{{ old('specifications', isset($motor->specifications) ? $motor->specifications : '') }}">
+												<textarea class="form-control" id="specifications" name="specifications" rows="4"
+													>{{ old('specifications', isset($motor->specifications) ? $motor->specifications : '') }}</textarea>
 											</div>
 											<div class="col-12 d-flex justify-content-end">
 												<a class="btn btn-danger btn-sm mx-2" href="{{ route('motor.index') }}">Cancel</a>

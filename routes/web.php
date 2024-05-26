@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/motor/{motor}/color/create', [MotorColorKeyController::class, 'store'])->name('color.store');
     Route::get('/motor/{motor}/color/{color}/edit', [MotorColorKeyController::class, 'edit'])->name('color.edit');
     Route::put('/motor/{motor}/color/{color}/edit', [MotorColorKeyController::class, 'update'])->name('color.update');
-
+    Route::put('/quantity', [MotorColorKeyController::class, 'updateQuantity'])->name('quantity.update');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
