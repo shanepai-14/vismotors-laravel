@@ -71,6 +71,8 @@
 				</li>
 				<li> <a href="{{ route('occupation.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Occupation</a>
 				</li>
+				<li> <a href="{{ route('motor_color.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Motorcycle Colors</a>
+				</li>
 			</ul>
 		</li>
 		@endif

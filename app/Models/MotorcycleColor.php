@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class MotorcycleColor extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'color',
+    ];
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MotorColorKeyController;
 use App\Http\Controllers\MotorController;
+use App\Http\Controllers\MotorcycleController;
 use App\Http\Controllers\OccupationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('transaction_type', TransactionTypeController::class);
     Route::put('/status', [TransactionController::class, 'status'])->name('status.update');
     Route::resource('occupation', OccupationController::class);
+    Route::resource('motor_color', MotorcycleController::class);
     Route::resource('user', UserController::class);
     Route::get('/employee', [UserController::class, 'employee'])->name('user.employee');
     Route::get('/employee/create', [UserController::class, 'createEmployee'])->name('user.employee.create');
