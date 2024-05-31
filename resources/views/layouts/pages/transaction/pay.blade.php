@@ -330,7 +330,7 @@
               </div>
             </div> --}}
 
-                    <div id="mapContainer" style="height: 400px;"></div>
+                    <div id="mapContainer" style="height: 400px; z-index:0"></div>
                 </div>
             </div>
             <div style="min-height:500px">

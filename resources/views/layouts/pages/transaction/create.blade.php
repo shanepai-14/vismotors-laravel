@@ -82,7 +82,7 @@
 													@endforeach
 												</select>
 											</div>
-											<div class="col-3">
+											<div class="col-3" id="downpayment_container">
 												<label class="form-label" for="downpayment">Downpayment</label>
 												<input
 													@isset($transaction)
@@ -166,45 +166,70 @@
 		$(document).ready(function() {
 
 $('.form-select').select2();
+$('#trans_type_id').select2();
+$('#motor_id').select2();
+
 
 });
+
+
+
+
 		var value;
 		let motor = document.getElementById('motor_id');
 		let due_date = document.getElementById('due_date');
 		var cash;
 		var downpayment = document.getElementById('downpayment');
-        document.getElementById('trans_type_id').addEventListener('change', function() {
+		let downpayment_container = document.getElementById('downpayment_container');
+		$('#trans_type_id').on('select2:select', function (e) {
 			var inputField = document.getElementById('loan');
 			value = this.value;
+			value = getCurrentSelection();
             if (value  === '1') {
                 inputField.style.display = 'none';
 				due_date.style.display = 'none';
+				downpayment_container.style.display = 'none';
 			  if(cash != undefined) {
 				downpayment.value = cash;
-				downpayment.setAttribute('readonly', true);
+				downpayment_container.style.display = 'none';
 				
 			  }
             } 
 			else  {
 				inputField.style.display = 'block';
 				downpayment.value ='';
-				downpayment.removeAttribute('readonly');
+				downpayment_container.style.display = 'block';
 				due_date.style.display = 'block';
             }
         });
+		function getCurrentSelection() {
+      var selectedData = $('#trans_type_id').select2('data');
+      console.log(selectedData[0].element.attributes.value.value);
+      return selectedData[0].element.attributes.value.value;
+    }
+	function getCurrentSelectionDataCash() {
+  var selectedData = $('#motor_id').select2('data');
+  if (selectedData.length > 0) {
+    var selectedElement = selectedData[0].element;
+    var dataCashValue = selectedElement.getAttribute('data-cash');
+    console.log(dataCashValue);
+    return dataCashValue;
+  }
+  return null;
+}
+	$('#motor_id').on('select2:select', function (e) {
 
-		document.getElementById('motor_id').addEventListener('change', function() {
-			cash = motor.options[motor.selectedIndex].getAttribute('data-cash');
+		cash = getCurrentSelectionDataCash();
         console.log(cash);
 		console.log(value);
             if(value === '1'){
 				downpayment.value = cash;
-				downpayment.setAttribute('readonly', true);
+				downpayment_container.style.display = 'none';
 				due_date.style.display = 'none';
 			}
 			 else{
                 downpayment.value ='';
-                downpayment.removeAttribute('readonly');
+                downpayment_container.style.display = 'block';
             }
     
 
