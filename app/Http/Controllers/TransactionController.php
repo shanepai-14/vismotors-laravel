@@ -237,19 +237,43 @@ class TransactionController extends Controller
     
         return redirect()->back()->with('error', 'Transaction not found');
     }
-    public function monthy_report(Request $request){
+    public function monthly_report(Request $request){
         $month = $request->input('month', Carbon::now()->format('Y-m'));
 
         // Fetch payments for the selected month
         $payments = TransactionPayment::whereYear('created_at', '=', Carbon::parse($month)->year)
                            ->whereMonth('created_at', '=', Carbon::parse($month)->month)
                            ->get();
+                
+                           $data = [];
+                           foreach ($payments as $payment) {
+                            $data[] = [
+                                'contract' => $payment->ref_no,
+                                'or_number' => $payment->or_number,
+                                'amount' =>'₱'.number_format($payment->amount,2, '.', ',') ,
+                                'payment_method' => $payment->payment_method,
+                                'cashier' => $payment->cashier->first_name ." ". $payment->cashier->last_name,
+                                'date' => $payment->created_at->format('M d, Y'),
+                                'balance' => '₱'.number_format(isset($payment->balance) ? $payment->balance : 0,2, '.', ','),
+                            ];
+                        }
+                    
+                        $response = [
+                            'draw' => (int) $request->input('draw'),
+                            'recordsTotal' => $payments->count(),
+                            'recordsFiltered' => $payments->count(),
+                            'data' => $data,
+                        ];
+                    
+                        return response()->json($response);
 
-                           return view('layouts.pages.report.report', [
-                            'payments' => $payments
-                        ]);
 
     } 
+
+    public function report_index(){
+        
+        return view('layouts.pages.report.report');
+    }
 
    
 }

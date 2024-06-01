@@ -7,9 +7,28 @@
     <section class="card  p-5">
         <div class="d-flex justify-content-between align-items-center mb-5">
    
-
+            
         <div style="min-height:500px; width:100%">
+          <div class="d-flex justify-content-between">
             <h3>Payment report as of this month</h3>
+            <div class="mb-3">
+                <label for="month-select" class="form-label">Select Month:</label>
+                <select class="form-control" id="month-select" name="month">
+                    @php
+                        $currentMonth = Carbon\Carbon::now()->format('Y-m');
+                    @endphp
+                    @foreach (range(1, 12) as $month)
+                        @php
+                            $monthValue = Carbon\Carbon::now()->startOfYear()->addMonths($month - 1)->format('Y-m');
+                            $isSelected = ($monthValue == $currentMonth);
+                        @endphp
+                        <option value="{{ $monthValue }}" {{ $isSelected ? 'selected' : '' }}>
+                            {{ Carbon\Carbon::createFromDate(null, $month, null)->format('F') }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
             <table class="table table-striped table-bordered" id="datatable_montly" style="width:100%; ">
                 <thead>
                     <tr>
@@ -24,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($payments as $payment)
+                    {{-- @foreach ($payments as $payment)
                         <tr>
                             <td>
                                 {{ $payment->ref_no }}
@@ -49,7 +68,7 @@
                             <td>₱{{ number_format(isset($payment->balance) ? $payment->balance : 0,2, '.', ',')}}</td>
                       
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -68,13 +87,35 @@
      <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
 
     <script>
-        $('#datatable_montly').DataTable({
+             $(function() {
+      const table =   $('#datatable_montly').DataTable({
     layout: {
         topStart: {
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
         }
-    }
+    },
+    processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route('monthly_report') }}',
+                    data: function(d) {
+                        d.month = $('#month-select').val();
+                    }
+                },
+                columns: [
+                    { data: 'contract' },
+                    { data: 'or_number' },
+                    { data: 'amount' },
+                    { data: 'payment_method' },
+                    { data: 'cashier' },
+                    { data: 'date' },
+                    { data: 'balance' }
+                ]
 });
+$('#month-select').change(function() {
+                table.ajax.reload();
+            });
+        })
     </script>
     @endpush
 	@section('additional_css')

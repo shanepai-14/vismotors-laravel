@@ -109,7 +109,7 @@
 										<td>
 											<div class="ms-auto">
 												<div class="btn-group">
-													<a class="btn btn-primary btn-sm"
+													<a class="btn btn-primary btn-sm {{ $transaction->statuses->name == 'Pending' ? 'd-none' : '' }}" 
 														href="{{ route('transaction.edit', ['transaction' => $transaction]) }}" onclick="handleEditButtonClick('{{$transaction->statuses->name}}')"  id="edit_btn">Edit</a>
 													<a class="btn btn-warning btn-sm"
 														href="{{ route('payment.transaction', ['transaction' => $transaction]) }}"  onclick="handleEditButtonClick('{{$transaction->statuses->name}}')" id="pay_btn">Pay</a>

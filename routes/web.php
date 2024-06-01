@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/report', [TransactionController::class, 'monthy_report'])->name('report');
+    Route::get('/monthly_report', [TransactionController::class, 'monthly_report'])->name('monthly_report');
+    Route::get('/report', [TransactionController::class, 'report_index'])->name('report');
     Route::controller(UploadController::class)->group(function () {
     
         Route::post('/upload', 'store');
