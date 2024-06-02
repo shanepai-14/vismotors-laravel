@@ -642,7 +642,7 @@ document.addEventListener('click', function(event) {
     console.log('Clicked image source:', imageSrc);
     const instance = basicLightbox.create(`
     <div class="modal">
-    <img src="${imageSrc}">
+    <img src="${imageSrc}" width="500px">
     </div>
 `)
 
