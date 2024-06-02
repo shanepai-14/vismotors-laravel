@@ -35,7 +35,11 @@ class UserProfile extends Model
         'citizenship_id',
         'valid_one',
         'valid_two',
-        'profile_picture'
+        'profile_picture',
+        'desc',
+        'income',
+        'billing'
+
     ];
 
     public function user()

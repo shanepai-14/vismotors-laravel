@@ -53,6 +53,24 @@ Route::middleware('auth')->group(function () {
 Route::get('/link', function() {
     Artisan::call('storage:link');
 });
+
+Route::get('/run-migrations', function () {
+    $output = new \Symfony\Component\Console\Output\BufferedOutput();
+    $exitCode = Artisan::call('migrate', [], $output);
+
+    if ($exitCode === 0) {
+        $message = "Migrations ran successfully!";
+    } else {
+        $message = "Migrations failed to run.";
+    }
+
+    return view('migration-output', [
+        'output' => $output->fetch(),
+        'message' => $message,
+    ]);
+});
+
+
 });
 
 require __DIR__.'/auth.php';
