@@ -65,8 +65,8 @@
 			<ul>
 				<li> <a href="{{ route('brand.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Brand</a>
 				</li>
-				<li> <a href="{{ route('transaction_type.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Transaction Type</a>
-				</li>
+				{{-- <li> <a href="{{ route('transaction_type.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Transaction Type</a>
+				</li> --}}
 				<li> <a href="{{ route('motor.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Motorcycle</a>
 				</li>
 				<li> <a href="{{ route('occupation.index') }}" onclick="handleEditButtonClick()"><i class='bx bx-radio-circle'></i>Occupation</a>

@@ -32,7 +32,7 @@ class UserController extends Controller
     }
     public function employee()
     {
-        $users =  User::role(['admin','cashier'])->get();
+        $users =  User::role(['admin','cashier','staff','manager'])->get();
 
         return view('layouts.setup.user.index', [
             'users' => $users,
