@@ -17,6 +17,7 @@
 				<div class="menu-title">Dashboard</div>
 			</a>
 		</li>
+		@if(auth()->user()->roles[0]->name !== 'staff')
 		<li>
 			<a class="has-arrow" href="javascript:;">
 				<div class="parent-icon"><i class="bx bx-file"></i>
@@ -36,6 +37,7 @@
 				</li>
 			</ul>
 		</li>
+		
 		<li>
 			<a href="{{ route('transaction.index') }}">
 				<div class="parent-icon"><i class='bx bx-briefcase'></i>
@@ -54,7 +56,8 @@
 				</li>
 			</ul>
 		</li>
-		@if(auth()->user()->roles[0]->name == 'admin')
+		@endif
+		@if(auth()->user()->roles[0]->name == 'admin' || auth()->user()->roles[0]->name == 'staff')
 		<li class="menu-label">Setup</li>
 		<li onclick="handleEditButtonClick()" >
 			<a onclick="handleEditButtonClick()" class="has-arrow" >
