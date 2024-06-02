@@ -351,18 +351,39 @@
                                         <div class="row g-3 mb-2">
                                             <div class="col-12">
                                                 <label class="form-label">Proof of Income</label>
-                                                @if (isset($user->profile->valid_two))
+                                                @if (isset($user->profile->income))
                                                     <div class=" align-items-center justify-content-center mb-2"
-                                                        id="valid_two_preview" style="display:flex">
+                                                        id="income_preview" style="display:flex">
                                                         <img class="mx-auto"
-                                                            src="{{ asset('storage/public/temporary_docs/' . $user->profile->valid_two) }}"
+                                                            src="{{ asset('storage/public/temporary_docs/' . $user->profile->income) }}"
                                                             width="200px">
                                                     </div>
                                                 @endif
                                                 <div class="form-check">
                                                     <input type="hidden" name="income_temp" id="income_temp"
-                                                        value="{{ isset($user->profile->valid_two) ? $user->profile->valid_two : '' }}">
+                                                        value="{{ isset($user->profile->income) ? $user->profile->income: '' }}">
                                                     <input type="file" name="document" id="income" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+									<div class=" border border-3 p-4 rounded mb-4">
+                                        <div class="row g-3 mb-2">
+                                            <div class="col-12">
+                                                <label class="form-label">Proof of Billing</label>
+                                                @if (isset($user->profile->billing))
+                                                    <div class=" align-items-center justify-content-center mb-2"
+                                                        id="billing_preview" style="display:flex">
+                                                        <img class="mx-auto"
+                                                            src="{{ asset('storage/public/temporary_docs/' . $user->profile->billing) }}"
+                                                            width="200px">
+                                                    </div>
+                                                @endif
+                                                <div class="form-check">
+                                                    <input type="hidden" name="billing_temp" id="billing_temp"
+                                                        value="{{ isset($user->profile->billing) ? $user->profile->billing: '' }}">
+                                                    <input type="file" name="document" id="billing" />
                                                 </div>
                                             </div>
                                         </div>
@@ -450,10 +471,10 @@
                             // Handle the server response after file upload
                             console.log(response);
                             const data = JSON.parse(response);
-                            // if (document.getElementById('valid_one_preview')) {
-                            //     document.getElementById('valid_one_preview').style.display = 'none';
-                            // }
-                            // transferFolderData(data, 'valid_one_temp');
+                            if (document.getElementById('income_preview')) {
+                                document.getElementById('income_preview').style.display = 'none';
+                            }
+                            transferFolderData(data, 'income_temp');
                             return data.folder;
                         }
                     },
@@ -474,6 +495,48 @@
                 }
 
             });
+			FilePond.create(document.querySelector('input[id="billing"]'), {
+                acceptedFileTypes: ['image/*'],
+                labelFileTypeNotAllowed: 'Only Images are allowed',
+                allowFileSizeValidation: true,
+                maxFileSize: '10MB', // Set maximum file size to 10MB
+                labelMaxFileSizeExceeded: 'File size exceeds 10MB limit',
+                labelFileProcessingError: 'File size exceeds 10MB limit',
+                server: {
+                    process: {
+                        url: '/upload',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken // Include CSRF token in the headers
+                        },
+                        onload: (response) => {
+                            // Handle the server response after file upload
+                            console.log(response);
+                            const data = JSON.parse(response);
+                            if (document.getElementById('billing_preview')) {
+                                document.getElementById('billing_preview').style.display = 'none';
+                            }
+                            transferFolderData(data, 'billing_temp');
+                            return data.folder;
+                        }
+                    },
+                    revert: {
+                        url: '/delete-temporary',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken // Include CSRF token in the headers
+                        },
+                        data: (file) => {
+                            // Pass the fileId as data to the revert request
+                            return JSON.stringify({
+                                fileId: file
+                            });
+                        }
+                    }
+                }
+
+            });
+
             FilePond.create(document.querySelector('input[id="valid_one"]'), {
                 acceptedFileTypes: ['image/*'],
                 labelFileTypeNotAllowed: 'Only Images are allowed',
