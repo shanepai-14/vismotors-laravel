@@ -254,7 +254,7 @@
                 <div class="col-12">
                   
                     <div class=" align-items-center justify-content-center mb-2" id="profile_preview" style="display:flex">
-                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/66518a20dde97-1716619808/2a7d4c4bc1381a476b8b8a85885ac392.jpg" width="200px">
+                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/${profile.profile_picture}" width="200px">
                     </div>
                 
                 </div>
@@ -265,7 +265,7 @@
                 <div class="col-12">
                     <label class="form-label">Valid ID One</label> : 
                     <div class=" align-items-center justify-content-center mb-2" id="valid_one_preview" style="display:flex">
-                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/66518a264e720-1716619814/images.jpg" width="200px">
+                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/${profile.valid_one}" width="200px">
                     </div>
        
                 </div>
@@ -276,18 +276,14 @@
                 <div class="col-12">
                     <label class="form-label">Valid ID Two</label> : 
                     <div class=" align-items-center justify-content-center mb-2" id="valid_two_preview" style="display:flex">
-                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/66518a2b15f13-1716619819/images.jpg" width="200px">
+                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/${profile.valid_two}" width="200px">
                     </div>
                 </div>
             </div>
         </div>
-        <div class=" border border-3 p-4 rounded mb-4">
-            <div class="row g-3 mb-2">
-                <div class="col-12">
-                    <label class="form-label">Proof of Income</label> : 
-                    <div class=" align-items-center justify-content-center mb-2" id="valid_two_preview" style="display:flex">
-                        <img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/66518a2b15f13-1716619819/images.jpg" width="200px">
-                    </div>
+       
+	</div>        
+                   
 		</div>
 				`)
 
