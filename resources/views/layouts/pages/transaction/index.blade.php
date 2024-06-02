@@ -244,6 +244,38 @@
                     <i class="mb-0">Self Employed</i>
                 </div>
             </div>
+			<div class="row gap-2">
+
+<div class="col-12 border border-3 p-4 rounded">
+	<label class="form-label">Address location</label>
+
+	<div id="mapContainer" style="height: 400px; z-index: 0; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-149px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 16; transform: translate3d(148px, 160px, 0px) scale(0.25);"></div><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://tile.openstreetmap.org/11/1725/970.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(117px, -10px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1726/970.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(373px, -10px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1725/971.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(117px, 246px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1726/971.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(373px, 246px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1724/970.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-139px, -10px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1727/970.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(629px, -10px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1724/971.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-139px, 246px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/11/1727/971.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(629px, 246px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(234px, 210px, 0px);"></div><div class="leaflet-pane leaflet-marker-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive leaflet-marker-draggable" alt="Marker" tabindex="0" role="button" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(234px, 210px, 0px); z-index: 210;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(441830px, 248530px, 0px) scale(1024);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
+</div>
+<div class="col border border-3 p-4 rounded mb-4">
+	<div class="row g-3 mb-2">
+		<div class="col-12">
+			<label class="form-label">Proof of Income</label>
+																		<div class=" align-items-center justify-content-center mb-2" id="income_preview" style="display:flex">
+					<img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/${profile.income}" width="200px">
+				</div>
+																
+		</div>
+	</div>
+
+</div>
+<div class=" col border border-3 p-4 rounded mb-4">
+	<div class="row g-3 mb-2">
+		<div class="col-12">
+			<label class="form-label">Proof of Billing</label>
+																		<div class=" align-items-center justify-content-center mb-2" id="billing_preview" style="display:flex">
+					<img class="mx-auto" src="https://vismotor.services/storage/public/temporary_docs/${profile.billing}" width="200px">
+				</div>
+																	
+		</div>
+	</div>
+
+</div>
+</div>
            
         </div>
     </div>
