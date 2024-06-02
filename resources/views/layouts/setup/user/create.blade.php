@@ -214,6 +214,48 @@
                                                     value="123.30301500485619" hidden>
                                                 <div id="mapContainer" style="height: 400px; z-index:0"></div>
                                             </div>
+											<div class="col border border-3 p-4 rounded mb-4">
+												<div class="row g-3 mb-2">
+													<div class="col-12">
+														<label class="form-label">Proof of Income</label>
+														@if (isset($user->profile->income))
+															<div class=" align-items-center justify-content-center mb-2"
+																id="income_preview" style="display:flex">
+																<img class="mx-auto"
+																	src="{{ asset('storage/public/temporary_docs/' . $user->profile->income) }}"
+																	width="200px">
+															</div>
+														@endif
+														<div class="form-check">
+															<input type="hidden" name="income_temp" id="income_temp"
+																value="{{ isset($user->profile->income) ? $user->profile->income: '' }}">
+															<input type="file" name="document" id="income" />
+														</div>
+													</div>
+												</div>
+		
+											</div>
+											<div class=" col border border-3 p-4 rounded mb-4">
+												<div class="row g-3 mb-2">
+													<div class="col-12">
+														<label class="form-label">Proof of Billing</label>
+														@if (isset($user->profile->billing))
+															<div class=" align-items-center justify-content-center mb-2"
+																id="billing_preview" style="display:flex">
+																<img class="mx-auto"
+																	src="{{ asset('storage/public/temporary_docs/' . $user->profile->billing) }}"
+																	width="200px">
+															</div>
+														@endif
+														<div class="form-check">
+															<input type="hidden" name="billing_temp" id="billing_temp"
+																value="{{ isset($user->profile->billing) ? $user->profile->billing: '' }}">
+															<input type="file" name="document" id="billing" />
+														</div>
+													</div>
+												</div>
+		
+											</div>
                                         </div>
 
                                     </div>
@@ -347,48 +389,7 @@
                                         </div>
 
                                     </div>
-                                    <div class=" border border-3 p-4 rounded mb-4">
-                                        <div class="row g-3 mb-2">
-                                            <div class="col-12">
-                                                <label class="form-label">Proof of Income</label>
-                                                @if (isset($user->profile->income))
-                                                    <div class=" align-items-center justify-content-center mb-2"
-                                                        id="income_preview" style="display:flex">
-                                                        <img class="mx-auto"
-                                                            src="{{ asset('storage/public/temporary_docs/' . $user->profile->income) }}"
-                                                            width="200px">
-                                                    </div>
-                                                @endif
-                                                <div class="form-check">
-                                                    <input type="hidden" name="income_temp" id="income_temp"
-                                                        value="{{ isset($user->profile->income) ? $user->profile->income: '' }}">
-                                                    <input type="file" name="document" id="income" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-									<div class=" border border-3 p-4 rounded mb-4">
-                                        <div class="row g-3 mb-2">
-                                            <div class="col-12">
-                                                <label class="form-label">Proof of Billing</label>
-                                                @if (isset($user->profile->billing))
-                                                    <div class=" align-items-center justify-content-center mb-2"
-                                                        id="billing_preview" style="display:flex">
-                                                        <img class="mx-auto"
-                                                            src="{{ asset('storage/public/temporary_docs/' . $user->profile->billing) }}"
-                                                            width="200px">
-                                                    </div>
-                                                @endif
-                                                <div class="form-check">
-                                                    <input type="hidden" name="billing_temp" id="billing_temp"
-                                                        value="{{ isset($user->profile->billing) ? $user->profile->billing: '' }}">
-                                                    <input type="file" name="document" id="billing" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                  
 
                                 </div>
                             </div>
