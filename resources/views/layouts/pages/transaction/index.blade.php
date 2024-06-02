@@ -163,6 +163,32 @@
     @endsection
     @push('scripts')
         <script>
+ function initMap(lat,lng) {
+                    const defaultLat = 9.299996171243155;
+                    const defaultLng = 123.30301500485619;
+
+                    const mapLat = !isNaN(lat) ? lat : defaultLat;
+                    const mapLng = !isNaN(lng) ? lng : defaultLng;
+
+
+                    map = L.map('mapContainer').setView([mapLat, mapLng],
+                    13); // Default center coordinates and zoom level
+
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    marker = L.marker([mapLat, mapLng], { // Default marker position
+                        draggable: true
+                    }).addTo(map);
+
+                    marker.on('dragend', function(event) {
+                        updateMarkerPosition(event.target.getLatLng());
+                    });
+                }
+
+
+
             function userView(user, userprofile) {
                 const customers = JSON.parse(user);
                 const profile = JSON.parse(userprofile);
@@ -342,10 +368,11 @@
                    
 		</div>
 				`)
-
+               
                 instance.show()
-                console.log(user);
-                console.log(userprofile);
+				initMap(profile.latitude,profile.longitude)
+			
+              
             }
 
             function handleEditButtonClick(status) {
