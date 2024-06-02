@@ -179,12 +179,10 @@
                     }).addTo(map);
 
                     marker = L.marker([mapLat, mapLng], { // Default marker position
-                        draggable: true
+                        draggable: false, //
                     }).addTo(map);
 
-                    marker.on('dragend', function(event) {
-                        updateMarkerPosition(event.target.getLatLng());
-                    });
+                   
                 }
 
 
