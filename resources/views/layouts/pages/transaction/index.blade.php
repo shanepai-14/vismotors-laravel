@@ -78,7 +78,8 @@
                                             {{ $transaction->customers->fullname() }} <br>
                                             {{-- {{ $transaction->customers }}
                                             {{ $transaction->customers->profile }} --}}
-											<button onclick="userView('{{ json_encode($transaction->customers) }}', '{{ json_encode($transaction->customers->profile) }}')">View</button>
+                                            <button
+                                                onclick="userView('{{ json_encode($transaction->customers) }}', '{{ json_encode($transaction->customers->profile) }}')">View</button>
                                         </td>
                                         <td>
                                             @php
@@ -163,8 +164,31 @@
     @push('scripts')
         <script>
             function userView(user, userprofile) {
-				const customers = JSON.parse(user);
-  const profile = JSON.parse(userprofile);
+                const customers = JSON.parse(user);
+                const profile = JSON.parse(userprofile);
+                const occupations = [
+                    "Govt. Employee",
+                    "Govt. Official",
+                    "Private Employee",
+                    "Part Time Employee",
+                    "Self Employed",
+                    "Student",
+                    "Unemployed"
+                ];
+                const citizenships = [
+                    "Filipino",
+                    "American",
+                    "Japanese",
+                    "British",
+                    "German",
+                    "Korean"
+                ];
+                const civilStatuses = [
+                    "Single",
+                    "Married",
+                    "Widowed",
+                    "Divorced"
+                ];
                 const instance = basicLightbox.create(`
 			
 	<div class="" style="width:90vw; overflow-y: scroll;  max-height: calc(100vh - 40px);">
@@ -229,19 +253,19 @@
                 </div>
                 <div class="col-4">
                     <label class="form-label" for="email">Gender</label> : 
-                    <i class="mb-0">${profile.gender_id}</i>
+                    <i class="mb-0">${profile.gender_id == 1 ? 'Male' : 'Female'}</i>
                 </div>
                 <div class="col-4">
                     <label class="form-label" for="email">Citizenship</label> : 
-                    <i class="mb-0">Filipino</i>
+                    <i class="mb-0">${citizenships[profile.citizenship_id - 1]}</i>
                 </div>
                 <div class="col-4">
                     <label class="form-label" for="email">Civil Status</label> : 
-                    <i class="mb-0">Single</i>
+                    <i class="mb-0">${civilStatuses[profile.civil_status_id] }</i>
                 </div>
                 <div class="col-4">
                     <label class="form-label" for="email">Occupation</label> : 
-                    <i class="mb-0">Self Employed</i>
+                    <i class="mb-0">${occupations[profile.occupation_id - 1]}</i>
                 </div>
             </div>
 			<div class="row gap-2">
@@ -320,8 +344,8 @@
 				`)
 
                 instance.show()
-				console.log(user);
-				console.log(userprofile);
+                console.log(user);
+                console.log(userprofile);
             }
 
             function handleEditButtonClick(status) {
